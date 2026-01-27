@@ -340,7 +340,7 @@ const Home = () => {
       <section id="contacto" className="py-20 px-6 lg:px-8 bg-white">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <span className="text-sm font-semibold text-emerald-600 tracking-wide uppercase">Contacto</span>
+            <span className="text-sm font-semibold text-blue-600 tracking-wide uppercase">Contacto</span>
             <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mt-4 mb-4">
               ¿Utilizas ERP o facturación electrónica?
             </h2>
