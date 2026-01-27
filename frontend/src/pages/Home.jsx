@@ -137,14 +137,14 @@ const Home = () => {
           <div className="flex justify-between items-center">
             <div className="text-2xl font-bold text-gray-900">J2Systems</div>
             <nav className="hidden md:flex gap-8">
-              <a href="#servicios" className="text-gray-600 hover:text-emerald-600 transition-colors">Servicios</a>
-              <a href="#proceso" className="text-gray-600 hover:text-emerald-600 transition-colors">Proceso</a>
-              <a href="#casos" className="text-gray-600 hover:text-emerald-600 transition-colors">Casos</a>
-              <a href="#contacto" className="text-gray-600 hover:text-emerald-600 transition-colors">Contacto</a>
+              <a href="#servicios" className="text-gray-600 hover:text-blue-600 transition-colors">Servicios</a>
+              <a href="#proceso" className="text-gray-600 hover:text-blue-600 transition-colors">Proceso</a>
+              <a href="#casos" className="text-gray-600 hover:text-blue-600 transition-colors">Casos</a>
+              <a href="#contacto" className="text-gray-600 hover:text-blue-600 transition-colors">Contacto</a>
             </nav>
             <Button
               onClick={() => window.open(whatsappLink, '_blank')}
-              className="bg-emerald-600 hover:bg-emerald-700 text-white"
+              className="bg-blue-600 hover:bg-blue-700 text-white"
             >
               <MessageSquare className="w-4 h-4 mr-2" />
               WhatsApp
