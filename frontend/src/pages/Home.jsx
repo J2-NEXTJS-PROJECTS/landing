@@ -197,7 +197,7 @@ const Home = () => {
               </div>
               <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-xl shadow-xl border border-gray-100">
                 <div className="flex items-center gap-3">
-                  <CheckCircle2 className="w-8 h-8 text-emerald-600" />
+                  <CheckCircle2 className="w-8 h-8 text-blue-600" />
                   <div>
                     <div className="font-semibold text-gray-900">+15 años</div>
                     <div className="text-sm text-gray-600">de experiencia</div>
