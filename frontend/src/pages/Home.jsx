@@ -245,7 +245,7 @@ const Home = () => {
       <section id="proceso" className="py-20 px-6 lg:px-8 bg-gray-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <span className="text-sm font-semibold text-emerald-600 tracking-wide uppercase">Metodología</span>
+            <span className="text-sm font-semibold text-blue-600 tracking-wide uppercase">Metodología</span>
             <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mt-4 mb-4">
               Cómo trabajo
             </h2>
@@ -256,11 +256,11 @@ const Home = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {process.map((step, index) => (
               <div key={index} className="relative">
-                <div className="text-6xl font-bold text-emerald-100 mb-4">{step.number}</div>
+                <div className="text-6xl font-bold text-blue-100 mb-4">{step.number}</div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-3">{step.title}</h3>
                 <p className="text-gray-600">{step.description}</p>
                 {index < process.length - 1 && (
-                  <div className="hidden lg:block absolute top-8 -right-4 text-emerald-300">
+                  <div className="hidden lg:block absolute top-8 -right-4 text-blue-300">
                     <ArrowRight className="w-8 h-8" />
                   </div>
                 )}
