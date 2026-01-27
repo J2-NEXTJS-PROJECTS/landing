@@ -145,7 +145,7 @@ const Home = () => {
       <header className="fixed top-0 w-full bg-white/80 backdrop-blur-md border-b border-gray-200 z-50">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-4">
           <div className="flex justify-between items-center">
-            <div className="text-2xl font-bold text-gray-900">J2Systems</div>
+            <Logo width={180} height={50} />
             <nav className="hidden md:flex gap-8">
               <a href="#servicios" className="text-gray-600 hover:text-blue-600 transition-colors">Servicios</a>
               <a href="#proceso" className="text-gray-600 hover:text-blue-600 transition-colors">Proceso</a>
