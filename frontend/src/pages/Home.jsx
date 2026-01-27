@@ -402,7 +402,7 @@ const Home = () => {
                   <Button
                     type="submit"
                     size="lg"
-                    className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white"
+                    className="flex-1 bg-blue-600 hover:bg-blue-700 text-white"
                   >
                     <Mail className="w-5 h-5 mr-2" />
                     Enviar mensaje
@@ -412,7 +412,7 @@ const Home = () => {
                     onClick={() => window.open(whatsappLink, '_blank')}
                     size="lg"
                     variant="outline"
-                    className="flex-1 border-2 border-emerald-600 text-emerald-600 hover:bg-emerald-50"
+                    className="flex-1 border-2 border-blue-600 text-blue-600 hover:bg-blue-50"
                   >
                     <MessageSquare className="w-5 h-5 mr-2" />
                     Escribir por WhatsApp
