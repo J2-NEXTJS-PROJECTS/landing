@@ -274,7 +274,7 @@ const Home = () => {
       <section className="py-20 px-6 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <span className="text-sm font-semibold text-emerald-600 tracking-wide uppercase">Stack Tecnológico</span>
+            <span className="text-sm font-semibold text-blue-600 tracking-wide uppercase">Stack Tecnológico</span>
             <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mt-4 mb-4">
               Tecnologías y herramientas
             </h2>
