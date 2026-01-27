@@ -89,6 +89,103 @@ async def get_status_checks():
     
     return status_checks
 
+# Contact Message Endpoints
+@api_router.post("/contact", response_model=ContactMessage, status_code=201)
+async def create_contact_message(contact: ContactMessageCreate):
+    """
+    Create a new contact message from the landing page form
+    """
+    try:
+        contact_dict = contact.model_dump()
+        contact_obj = ContactMessage(**contact_dict)
+        
+        # Convert to dict and serialize datetime to ISO string for MongoDB
+        doc = contact_obj.model_dump()
+        doc['created_at'] = doc['created_at'].isoformat()
+        
+        # Insert into MongoDB
+        result = await db.contact_messages.insert_one(doc)
+        
+        # Log the contact message
+        logger.info(f"New contact message from {contact_obj.email}")
+        
+        return contact_obj
+    except Exception as e:
+        logger.error(f"Error creating contact message: {str(e)}")
+        raise HTTPException(status_code=500, detail="Error creating contact message")
+
+@api_router.get("/contact", response_model=List[ContactMessage])
+async def get_contact_messages():
+    """
+    Get all contact messages (for admin panel)
+    """
+    try:
+        messages = await db.contact_messages.find({}, {"_id": 0}).sort("created_at", -1).to_list(1000)
+        
+        # Convert ISO string timestamps back to datetime objects
+        for msg in messages:
+            if isinstance(msg['created_at'], str):
+                msg['created_at'] = datetime.fromisoformat(msg['created_at'])
+        
+        return messages
+    except Exception as e:
+        logger.error(f"Error fetching contact messages: {str(e)}")
+        raise HTTPException(status_code=500, detail="Error fetching contact messages")
+
+@api_router.get("/contact/{contact_id}", response_model=ContactMessage)
+async def get_contact_message(contact_id: str):
+    """
+    Get a specific contact message by ID
+    """
+    try:
+        message = await db.contact_messages.find_one({"id": contact_id}, {"_id": 0})
+        if not message:
+            raise HTTPException(status_code=404, detail="Contact message not found")
+        
+        # Convert ISO string timestamp back to datetime object
+        if isinstance(message['created_at'], str):
+            message['created_at'] = datetime.fromisoformat(message['created_at'])
+        
+        return ContactMessage(**message)
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error fetching contact message: {str(e)}")
+        raise HTTPException(status_code=500, detail="Error fetching contact message")
+
+@api_router.patch("/contact/{contact_id}", response_model=ContactMessage)
+async def update_contact_message(contact_id: str, update: ContactMessageUpdate):
+    """
+    Update contact message status (mark as read/replied)
+    """
+    try:
+        # Build update dict only with provided fields
+        update_dict = {k: v for k, v in update.model_dump().items() if v is not None}
+        
+        if not update_dict:
+            raise HTTPException(status_code=400, detail="No fields to update")
+        
+        # Update in MongoDB
+        result = await db.contact_messages.find_one_and_update(
+            {"id": contact_id},
+            {"$set": update_dict},
+            return_document=True
+        )
+        
+        if not result:
+            raise HTTPException(status_code=404, detail="Contact message not found")
+        
+        # Convert ISO string timestamp back to datetime object
+        if isinstance(result['created_at'], str):
+            result['created_at'] = datetime.fromisoformat(result['created_at'])
+        
+        return ContactMessage(**result)
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error updating contact message: {str(e)}")
+        raise HTTPException(status_code=500, detail="Error updating contact message")
+
 # Include the router in the main app
 app.include_router(api_router)
 
