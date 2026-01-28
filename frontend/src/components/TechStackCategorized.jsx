@@ -156,35 +156,23 @@ const TechStackCategorized = () => {
       items: [
         {
           name: 'Stripe',
-          logo: <img src="/tech-logos/stripe.png" alt="Stripe" className="w-10 h-10 object-contain" />
+          logo: <img src="/tech-logos/stripe.png" alt="Stripe" className="w-14 h-14 object-contain" />
         },
         {
           name: 'PayPal',
-          logo: <img src="/tech-logos/paypal.jpg" alt="PayPal" className="w-10 h-10 object-contain rounded" />
+          logo: <img src="/tech-logos/paypal.jpg" alt="PayPal" className="w-14 h-14 object-contain bg-white rounded p-1" />
         },
         {
           name: 'Payphone',
-          logo: (
-            <div className="w-10 h-10 bg-gradient-to-br from-indigo-600 to-indigo-800 rounded-lg flex items-center justify-center text-white font-bold text-sm">
-              PP
-            </div>
-          )
+          logo: <img src="/tech-logos/payphone.jpg" alt="Payphone" className="w-12 h-12 object-contain rounded" />
         },
         {
           name: 'Kushki',
-          logo: (
-            <div className="w-10 h-10 bg-gradient-to-br from-cyan-600 to-cyan-800 rounded-lg flex items-center justify-center text-white font-bold text-lg">
-              K
-            </div>
-          )
+          logo: <img src="/tech-logos/kushki.png" alt="Kushki" className="w-12 h-12 object-contain" />
         },
         {
           name: 'Nuvei',
-          logo: (
-            <div className="w-10 h-10 bg-gradient-to-br from-orange-600 to-orange-800 rounded-lg flex items-center justify-center text-white font-bold text-lg">
-              N
-            </div>
-          )
+          logo: <img src="/tech-logos/nuvei.svg" alt="Nuvei" className="w-12 h-12 object-contain" />
         }
       ]
     },
