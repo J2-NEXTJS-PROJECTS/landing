@@ -9,6 +9,7 @@ from pydantic import BaseModel, Field, ConfigDict, EmailStr
 from typing import List, Optional
 import uuid
 from datetime import datetime, timezone
+from email_service import send_contact_notification
 
 
 ROOT_DIR = Path(__file__).parent
