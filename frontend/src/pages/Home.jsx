@@ -178,31 +178,12 @@ const Home = () => {
               <p className="text-xl text-gray-600 leading-relaxed">
                 Especialista en integración de ERP, facturación electrónica y desarrollo de soluciones empresariales para Ecuador.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button
-                  onClick={() => document.getElementById('contacto').scrollIntoView({ behavior: 'smooth' })}
-                  size="lg"
-                  className="bg-blue-600 hover:bg-blue-700 text-white text-lg px-8 py-6"
-                >
-                  Contáctame
-                  <ArrowRight className="w-5 h-5 ml-2" />
-                </Button>
-                <Button
-                  onClick={() => window.open(whatsappLink, '_blank')}
-                  size="lg"
-                  variant="outline"
-                  className="border-2 border-gray-300 hover:border-blue-600 text-lg px-8 py-6"
-                >
-                  <MessageSquare className="w-5 h-5 mr-2" />
-                  WhatsApp
-                </Button>
-              </div>
             </div>
             <div className="relative">
               <div className="aspect-square rounded-2xl overflow-hidden shadow-2xl">
                 <img
-                  src="https://images.unsplash.com/photo-1606857521015-7f9fcf423740"
-                  alt="Professional workspace"
+                  src="https://images.unsplash.com/photo-1521737711867-e3b97375f902"
+                  alt="Equipo de desarrollo profesional"
                   className="w-full h-full object-cover"
                 />
               </div>
