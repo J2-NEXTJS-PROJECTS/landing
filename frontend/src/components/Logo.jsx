@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Logo = ({ className = "", width = 200, height = 60 }) => {
+const Logo = ({ className = "", width = 240, height = 70 }) => {
   return (
     <svg 
       width={width} 
       height={height} 
-      viewBox="0 0 200 60" 
+      viewBox="0 0 240 70" 
       fill="none" 
       xmlns="http://www.w3.org/2000/svg"
       className={className}
@@ -20,16 +20,16 @@ const Logo = ({ className = "", width = 200, height = 60 }) => {
       
       {/* Modern hexagonal badge */}
       <path 
-        d="M 15 10 L 30 2 L 45 10 L 45 26 L 30 34 L 15 26 Z" 
+        d="M 18 12 L 36 3 L 54 12 L 54 30 L 36 39 L 18 30 Z" 
         fill="url(#logoGradient)"
       />
       
       {/* J2 text in white inside the hexagon */}
       <text 
-        x="30" 
-        y="24" 
+        x="36" 
+        y="27" 
         fontFamily="system-ui, -apple-system, sans-serif" 
-        fontSize="16" 
+        fontSize="19" 
         fontWeight="700" 
         fill="white" 
         textAnchor="middle"
@@ -39,10 +39,10 @@ const Logo = ({ className = "", width = 200, height = 60 }) => {
       
       {/* Systems text - modern sans-serif */}
       <text 
-        x="55" 
-        y="26" 
+        x="65" 
+        y="30" 
         fontFamily="system-ui, -apple-system, sans-serif" 
-        fontSize="24" 
+        fontSize="28" 
         fontWeight="600" 
         fill="#1f2937"
         letterSpacing="-0.5"
@@ -52,12 +52,12 @@ const Logo = ({ className = "", width = 200, height = 60 }) => {
       
       {/* Subtle accent line */}
       <line 
-        x1="55" 
-        y1="32" 
-        x2="155" 
-        y2="32" 
+        x1="65" 
+        y1="37" 
+        x2="185" 
+        y2="37" 
         stroke="#3b82f6" 
-        strokeWidth="2"
+        strokeWidth="2.5"
         opacity="0.3"
       />
     </svg>
