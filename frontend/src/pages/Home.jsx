@@ -299,14 +299,21 @@ const Home = () => {
               Soluciones implementadas para empresas ecuatorianas
             </p>
           </div>
-          <div className="grid lg:grid-cols-3 gap-8">
+          <div className="grid lg:grid-cols-2 gap-8">
             {cases.map((caseItem, index) => (
-              <Card key={index} className="border-2 border-gray-100 hover:shadow-xl transition-shadow">
+              <Card key={index} className="border-2 border-gray-100 hover:shadow-xl transition-shadow overflow-hidden">
                 <CardHeader>
-                  <CardTitle className="text-xl text-gray-900">{caseItem.title}</CardTitle>
-                  <CardDescription className="text-base text-gray-600 mt-3">
-                    {caseItem.description}
-                  </CardDescription>
+                  <div className="flex items-start gap-4">
+                    <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl flex items-center justify-center text-3xl flex-shrink-0 shadow-lg">
+                      {caseItem.logo}
+                    </div>
+                    <div className="flex-1">
+                      <CardTitle className="text-xl text-gray-900 mb-2">{caseItem.title}</CardTitle>
+                      <CardDescription className="text-base text-gray-600">
+                        {caseItem.description}
+                      </CardDescription>
+                    </div>
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <div className="flex items-start gap-3 bg-blue-50 p-4 rounded-lg">
