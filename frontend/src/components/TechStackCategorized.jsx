@@ -64,7 +64,7 @@ const TechStackCategorized = () => {
         },
         {
           name: 'NestJS',
-          logo: <img src="/tech-logos/nestjs.png" alt="NestJS" className="w-12 h-12 object-contain" />
+          logo: <img src="/tech-logos/nestjs.svg" alt="NestJS" className="w-10 h-10 object-contain" />
         },
         {
           name: 'Python',
