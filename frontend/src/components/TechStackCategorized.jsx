@@ -156,7 +156,7 @@ const TechStackCategorized = () => {
         },
         {
           name: 'PayPal',
-          logo: <img src="/tech-logos/paypal.jpg" alt="PayPal" className="w-16 h-16 object-cover bg-white rounded p-2" />
+          logo: <img src="/tech-logos/paypal.png" alt="PayPal" className="w-16 h-16 object-contain" />
         },
         {
           name: 'Payphone',
@@ -168,7 +168,7 @@ const TechStackCategorized = () => {
         },
         {
           name: 'Nuvei',
-          logo: <img src="/tech-logos/nuvei.svg" alt="Nuvei" className="w-16 h-16 object-contain" />
+          logo: <img src="/tech-logos/nuvei.svg" alt="Nuvei" className="w-20 h-20 object-contain" />
         }
       ]
     },
