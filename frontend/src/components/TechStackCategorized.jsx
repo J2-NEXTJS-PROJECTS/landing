@@ -164,7 +164,7 @@ const TechStackCategorized = () => {
         },
         {
           name: 'Kushki',
-          logo: <img src="/tech-logos/kushki.png" alt="Kushki" className="w-14 h-14 object-contain" />
+          logo: <img src="/tech-logos/kushki.png" alt="Kushki" className="w-14 h-14 object-contain bg-transparent" style={{mixBlendMode: 'multiply'}} />
         },
         {
           name: 'Nuvei',
