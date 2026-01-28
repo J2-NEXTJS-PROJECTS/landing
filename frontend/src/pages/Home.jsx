@@ -283,24 +283,7 @@ const Home = () => {
               Experiencia con tecnologías modernas y herramientas empresariales
             </p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {technologies.map((tech, index) => (
-              <Card key={index} className="border border-gray-200">
-                <CardHeader>
-                  <CardTitle className="text-lg text-gray-900">{tech.category}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex flex-wrap gap-2">
-                    {tech.items.map((item, idx) => (
-                      <span key={idx} className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">
-                        {item}
-                      </span>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          <TechStack />
         </div>
       </section>
 
