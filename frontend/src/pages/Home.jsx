@@ -126,17 +126,26 @@ const Home = () => {
     {
       title: "Empresa Exportadora de Banano",
       description: "Sistema de gestión documental y monitoreo de contenedores en tiempo real",
-      result: "Reducción del 60% en tiempo de procesamiento de documentos"
+      result: "Reducción del 60% en tiempo de procesamiento de documentos",
+      logo: "🍌"
     },
     {
       title: "Proveedor de Servicios Web",
       description: "Automatización completa: compra, pago con tarjeta, activación de servicios e integración con ERP",
-      result: "Procesamiento automático del 95% de las transacciones"
+      result: "Procesamiento automático del 95% de las transacciones",
+      logo: "🌐"
     },
     {
       title: "Proveedor de Dominios",
       description: "Consultoría y asesoría técnica especializada en arquitectura de sistemas",
-      result: "Optimización de infraestructura y reducción de costos operativos"
+      result: "Optimización de infraestructura y reducción de costos operativos",
+      logo: "🔧"
+    },
+    {
+      title: "Empresa de Logística",
+      description: "Integración de sistemas de tracking y facturación electrónica con ERP",
+      result: "Mejora del 80% en visibilidad de operaciones",
+      logo: "📦"
     }
   ];
 
