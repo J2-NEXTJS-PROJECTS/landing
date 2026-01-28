@@ -91,11 +91,7 @@ const TechStackCategorized = () => {
         },
         {
           name: 'FastAPI',
-          logo: (
-            <div className="w-10 h-10 bg-gradient-to-br from-teal-500 to-teal-700 rounded-lg flex items-center justify-center text-white font-bold text-lg">
-              F
-            </div>
-          )
+          logo: <img src="/tech-logos/fastapi.jpg" alt="FastAPI" className="w-10 h-10 object-contain rounded" />
         }
       ]
     },
