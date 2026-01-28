@@ -168,7 +168,7 @@ const TechStackCategorized = () => {
         },
         {
           name: 'Nuvei',
-          logo: <img src="/tech-logos/nuvei.svg" alt="Nuvei" className="w-20 h-20 object-contain" />
+          logo: <img src="/tech-logos/nuvei.svg" alt="Nuvei" className="w-14 h-14 object-contain scale-150" />
         }
       ]
     },
