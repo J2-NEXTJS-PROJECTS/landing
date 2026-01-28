@@ -107,6 +107,14 @@ async def create_contact_message(contact: ContactMessageCreate):
         # Insert into MongoDB
         _ = await db.contact_messages.insert_one(doc)
         
+        # Send email notification
+        try:
+            await send_contact_notification(contact_dict)
+            logger.info(f"Email notification sent for contact from {contact_obj.email}")
+        except Exception as email_error:
+            logger.error(f"Failed to send email notification: {str(email_error)}")
+            # Continue even if email fails - message is still saved
+        
         # Log the contact message
         logger.info(f"New contact message from {contact_obj.email}")
         
