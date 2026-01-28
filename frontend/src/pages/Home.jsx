@@ -144,21 +144,21 @@ const Home = () => {
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <header className="fixed top-0 w-full bg-white/80 backdrop-blur-md border-b border-gray-200 z-50">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-4">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-3">
           <div className="flex justify-between items-center">
-            <Logo width={180} height={50} />
-            <nav className="hidden md:flex gap-8">
-              <a href="#servicios" className="text-gray-600 hover:text-blue-600 transition-colors">Servicios</a>
-              <a href="#proceso" className="text-gray-600 hover:text-blue-600 transition-colors">Proceso</a>
-              <a href="#casos" className="text-gray-600 hover:text-blue-600 transition-colors">Casos</a>
-              <a href="#contacto" className="text-gray-600 hover:text-blue-600 transition-colors">Contacto</a>
+            <Logo width={220} height={65} />
+            <nav className="hidden md:flex gap-8 items-center">
+              <a href="#servicios" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">Servicios</a>
+              <a href="#proceso" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">Proceso</a>
+              <a href="#casos" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">Casos</a>
+              <a href="#contacto" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">Contacto</a>
             </nav>
             <Button
-              onClick={() => window.open(whatsappLink, '_blank')}
+              onClick={() => document.getElementById('contacto').scrollIntoView({ behavior: 'smooth' })}
               className="bg-blue-600 hover:bg-blue-700 text-white"
             >
               <MessageSquare className="w-4 h-4 mr-2" />
-              WhatsApp
+              Contáctame
             </Button>
           </div>
         </div>
