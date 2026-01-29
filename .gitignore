@@ -1,5 +1,10 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# emergent
+.emergent/
+memory/
+
+
 # IDE and editors
 .idea/
 .vscode/
@@ -81,16 +86,3 @@ agenthub/agents/youtube/db
 android-sdk/ -e 
 # Environment files
 *.env
-*.env.*
--e 
-# Environment files
-*.env
-*.env.*
-frontend-next/node_modules/@next/swc-linux-arm64-gnu/next-swc.linux-arm64-gnu.node
-frontend-next/node_modules/@next/swc-linux-arm64-musl/next-swc.linux-arm64-musl.node
-frontend/node_modules/@next/swc-linux-arm64-musl/next-swc.linux-arm64-musl.node
-frontend/node_modules/@next/swc-linux-arm64-gnu/next-swc.linux-arm64-gnu.node
--e 
-# Environment files
-*.env
-*.env.*
