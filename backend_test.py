@@ -12,7 +12,7 @@ import sys
 import os
 
 # Backend URL from frontend .env
-BACKEND_URL = "https://solucionesintegra.preview.emergentagent.com/api"
+BACKEND_URL = "https://j2-landing-page.preview.emergentagent.com/api"
 
 class Colors:
     GREEN = '\033[92m'
