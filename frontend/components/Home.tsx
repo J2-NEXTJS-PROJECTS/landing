@@ -1,56 +1,29 @@
 "use client";
 
 import React, { useState } from 'react';
-import { Logo } from './Logo';
-import { ThemeToggle } from './ThemeToggle';
-import { TechStackCategorized } from './TechStackCategorized';
 import { Button } from './ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
-import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { toast } from 'sonner';
+import { Logo } from './Logo';
+import { TechStackCategorized } from './TechStackCategorized';
+import { ThemeToggle } from './ThemeToggle';
 import { sendContactEmail } from '@/app/actions/contact';
-import { Menu, X, Send, MessageCircle, Mail, Phone, MapPin, CheckCircle, Users, Zap, Shield, ChevronRight, ExternalLink } from 'lucide-react';
-import Image from 'next/image';
-
-// Success Cases Data
-const successCases = [
-  {
-    name: "Ecuahosting",
-    logo: "/case-logos/ecuahosting.png",
-    description: "Automatización de facturación electrónica para servicios de hosting con integración WHMCS y Dátil.",
-    impact: "Reducción del 80% en tiempo de facturación"
-  },
-  {
-    name: "Ecuaweb",
-    logo: "/case-logos/ecuaweb.png",
-    description: "Sistema completo de gestión de clientes y facturación automatizada para agencia web.",
-    impact: "Gestión centralizada de +500 clientes"
-  },
-  {
-    name: "Grobandeli",
-    logo: "/case-logos/grobandeli.png",
-    description: "Desarrollo de plataforma e-commerce con integración de pasarelas de pago locales.",
-    impact: "Incremento del 150% en ventas online"
-  },
-  {
-    name: "NICEC",
-    logo: "/case-logos/nicec.png",
-    description: "Integración de sistema ERP Odoo con facturación electrónica y reportería avanzada.",
-    impact: "Automatización del 90% de procesos contables"
-  }
-];
-
-// Navigation Links
-const navLinks = [
-  { name: "Inicio", href: "#inicio" },
-  { name: "Tecnologías", href: "#tecnologias" },
-  { name: "Casos de Éxito", href: "#casos" },
-  { name: "Contacto", href: "#contacto" }
-];
+import {
+  ArrowRight,
+  CheckCircle2,
+  Code2,
+  Database,
+  FileText,
+  Workflow,
+  Layers,
+  MessageSquare,
+  Mail,
+  Zap
+} from 'lucide-react';
 
 export function Home() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -59,204 +32,179 @@ export function Home() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-
     try {
       const result = await sendContactEmail(formData);
-      
       if (result.success) {
-        toast.success('¡Mensaje enviado correctamente!', {
-          description: 'Nos pondremos en contacto contigo pronto.'
+        toast.success("Mensaje enviado", {
+          description: "Gracias por contactarme. Te responderé pronto.",
         });
         setFormData({ name: '', email: '', company: '', message: '' });
       } else {
-        toast.error('Error al enviar el mensaje', {
-          description: result.message || 'Por favor, inténtalo de nuevo.'
+        toast.error("Error al enviar", {
+          description: result.message || "No se pudo enviar el mensaje. Intenta nuevamente.",
         });
       }
     } catch (error) {
-      toast.error('Error inesperado', {
-        description: 'Por favor, inténtalo de nuevo más tarde.'
+      console.error('Error sending contact message:', error);
+      toast.error("Error al enviar", {
+        description: "No se pudo enviar el mensaje. Intenta nuevamente.",
       });
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '+593997154016';
-  const whatsappLink = `https://wa.me/${whatsappNumber.replace(/[^0-9]/g, '')}`;
+  const whatsappNumber = "+593997154016";
+  const whatsappMessage = "Hola, me interesa conocer más sobre los servicios de integración de sistemas.";
+  const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+
+  const services = [
+    {
+      icon: <Layers className="w-8 h-8" />,
+      title: "Integración de Sistemas",
+      description: "Conecta tus sistemas internos o POS con Odoo, Datil, Contifico y otras plataformas mediante APIs robustas y escalables."
+    },
+    {
+      icon: <FileText className="w-8 h-8" />,
+      title: "Facturación Electrónica",
+      description: "Implementación completa de facturación electrónica cumpliendo con la normativa ecuatoriana del SRI."
+    },
+    {
+      icon: <Code2 className="w-8 h-8" />,
+      title: "Desarrollo Web a Medida",
+      description: "Aplicaciones web personalizadas para operaciones internas o plataformas de negocio con tecnologías modernas."
+    },
+    {
+      icon: <Workflow className="w-8 h-8" />,
+      title: "Automatización con IA",
+      description: "Automatiza flujos de trabajo complejos y crea agentes inteligentes usando n8n y tecnologías de IA."
+    },
+    {
+      icon: <Database className="w-8 h-8" />,
+      title: "Consultoría Técnica",
+      description: "Asesoría especializada en arquitectura de software, optimización de procesos y selección de tecnologías."
+    },
+    {
+      icon: <Zap className="w-8 h-8" />,
+      title: "Optimización de Procesos",
+      description: "Análisis y mejora de procesos empresariales mediante soluciones tecnológicas eficientes y escalables."
+    }
+  ];
+
+  const processSteps = [
+    {
+      number: "01",
+      title: "Análisis",
+      description: "Evaluación detallada de procesos y necesidades del negocio"
+    },
+    {
+      number: "02",
+      title: "Diseño",
+      description: "Arquitectura de solución y definición de alcance técnico"
+    },
+    {
+      number: "03",
+      title: "Implementación",
+      description: "Desarrollo, integración y pruebas exhaustivas"
+    },
+    {
+      number: "04",
+      title: "Soporte",
+      description: "Acompañamiento continuo y optimización del sistema"
+    }
+  ];
+
+  const cases = [
+    {
+      title: "Grobandeli - Banaexport",
+      description: "Sistema de gestión documental, monitoreo y tracking de contenedores en tiempo real.",
+      result: "Oferta de valor agregado y canal de CRM para que los clientes puedan ir gestionando su documentación y monitoreo de su contenedor.",
+      logo: "/case-logos/grobandeli.png"
+    },
+    {
+      title: "Ecuaweb",
+      description: "Automatización completa: Checkout, pago con tarjeta de crédito, activación de servicios, facturación electrónica e integración con el flujo de ERP.",
+      result: "Procesamiento automático del 100% de las transacciones y reducción de un 95% de carritos de compras abandonados.",
+      logo: "/case-logos/ecuaweb.png"
+    },
+    {
+      title: "Ecuahosting",
+      description: "Automatización completa: Checkout, pago con tarjeta de crédito, activación de servicios, facturación electrónica e integración con el flujo de ERP.",
+      result: "Procesamiento automático del 100% de las transacciones y reducción de un 95% de carritos de compras abandonados.",
+      logo: "/case-logos/ecuahosting.png"
+    },
+    {
+      title: "ECUADORDOMAIN S.A.",
+      description: "Asesoría para mejores practicas de diseño de infraestructura y Capacitaciones.",
+      result: "Infraestructura estable, tolerante a fallos, resiliencia óptima.",
+      logo: "/case-logos/nicec.png"
+    }
+  ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
       {/* Header */}
-      <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container mx-auto px-4">
-          <div className="flex h-16 items-center justify-between">
-            {/* Logo */}
-            <a href="#inicio" className="flex items-center" data-testid="header-logo">
-              <Logo width={160} height={45} />
-            </a>
-
-            {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center gap-6" data-testid="desktop-nav">
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-                  data-testid={`nav-link-${link.name.toLowerCase()}`}
-                >
-                  {link.name}
-                </a>
-              ))}
+      <header className="fixed top-0 w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 z-50">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-3">
+          <div className="flex justify-between items-center">
+            <Logo width={220} height={65} />
+            <nav className="hidden md:flex gap-8 items-center">
+              <a href="#servicios" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium">Servicios</a>
+              <a href="#proceso" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium">Proceso</a>
+              <a href="#casos" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium">Casos</a>
+              <a href="#contacto" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium">Contacto</a>
             </nav>
-
-            {/* Right Side Actions */}
             <div className="flex items-center gap-3">
               <ThemeToggle />
-              <Button 
-                asChild 
-                className="hidden sm:inline-flex bg-blue-600 hover:bg-blue-700"
-                data-testid="contact-btn-header"
-              >
-                <a href="#contacto">Contáctame</a>
-              </Button>
-              
-              {/* Mobile Menu Button */}
               <Button
-                variant="ghost"
-                size="icon"
-                className="md:hidden"
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                data-testid="mobile-menu-btn"
+                onClick={() => document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' })}
+                className="bg-blue-600 hover:bg-blue-700 text-white"
               >
-                {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+                <MessageSquare className="w-4 h-4 mr-2" />
+                Contáctame
               </Button>
             </div>
           </div>
-
-          {/* Mobile Navigation */}
-          {mobileMenuOpen && (
-            <div className="md:hidden border-t border-border py-4" data-testid="mobile-nav">
-              <nav className="flex flex-col gap-3">
-                {navLinks.map((link) => (
-                  <a
-                    key={link.name}
-                    href={link.href}
-                    className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors px-2 py-2"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {link.name}
-                  </a>
-                ))}
-                <Button asChild className="mt-2 bg-blue-600 hover:bg-blue-700">
-                  <a href="#contacto" onClick={() => setMobileMenuOpen(false)}>
-                    Contáctame
-                  </a>
-                </Button>
-              </nav>
-            </div>
-          )}
         </div>
       </header>
 
       {/* Hero Section */}
-      <section id="inicio" className="relative py-20 md:py-32 overflow-hidden" data-testid="hero-section">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 -z-10">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-background to-indigo-50 dark:from-blue-950/20 dark:via-background dark:to-indigo-950/20" />
-          <div className="absolute top-0 left-1/4 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl" />
-        </div>
-
-        <div className="container mx-auto px-4">
+      <section className="pt-32 pb-20 px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Hero Content */}
-            <div className="text-center lg:text-left">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-sm font-medium mb-6">
-                <Zap className="w-4 h-4" />
-                Soluciones tecnológicas a medida
+            <div className="space-y-8">
+              <div className="inline-block">
+                <span className="text-sm font-semibold text-blue-600 tracking-wide uppercase">Integración de Sistemas</span>
               </div>
-              
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
-                Integración de{' '}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
-                  Sistemas
-                </span>{' '}
-                y Desarrollo Web
+              <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white leading-tight">
+                Automatiza procesos y conecta tus sistemas críticos
               </h1>
-              
-              <p className="text-lg text-muted-foreground mb-8 max-w-xl mx-auto lg:mx-0">
-                Especialista en conectar sistemas empresariales, automatizar procesos y desarrollar 
-                soluciones web modernas para empresas ecuatorianas. ERP, facturación electrónica y más.
+              <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
+                Especialista en integración de ERP, facturación electrónica y desarrollo de soluciones empresariales para Ecuador.
               </p>
-
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <Button 
-                  size="lg" 
-                  className="bg-blue-600 hover:bg-blue-700 text-white"
-                  asChild
-                  data-testid="hero-contact-btn"
-                >
-                  <a href="#contacto">
-                    Solicitar Cotización
-                    <ChevronRight className="ml-2 h-4 w-4" />
-                  </a>
-                </Button>
-                <Button 
-                  size="lg" 
-                  variant="outline"
-                  asChild
-                  data-testid="hero-cases-btn"
-                >
-                  <a href="#casos">
-                    Ver Casos de Éxito
-                  </a>
-                </Button>
-              </div>
-
-              {/* Trust Indicators */}
-              <div className="flex flex-wrap gap-6 justify-center lg:justify-start mt-10 pt-10 border-t border-border">
-                <div className="flex items-center gap-2">
-                  <CheckCircle className="w-5 h-5 text-green-500" />
-                  <span className="text-sm text-muted-foreground">+10 años experiencia</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Users className="w-5 h-5 text-blue-500" />
-                  <span className="text-sm text-muted-foreground">+50 proyectos exitosos</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Shield className="w-5 h-5 text-purple-500" />
-                  <span className="text-sm text-muted-foreground">Soporte garantizado</span>
-                </div>
-              </div>
             </div>
-
-            {/* Hero Image */}
-            <div className="relative hidden lg:block">
-              <div className="relative aspect-square max-w-lg mx-auto">
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-3xl rotate-6 opacity-20" />
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-3xl -rotate-3 opacity-10" />
-                <div className="relative bg-card border border-border rounded-3xl overflow-hidden shadow-2xl">
-                  <div className="p-8 flex flex-col items-center justify-center h-full min-h-[400px]">
-                    <Logo width={200} height={60} className="mb-8" />
-                    <div className="grid grid-cols-3 gap-4 w-full">
-                      {['React', 'Node.js', 'Python', 'PostgreSQL', 'Odoo', 'AWS'].map((tech) => (
-                        <div 
-                          key={tech}
-                          className="bg-muted/50 rounded-lg p-3 text-center text-xs font-medium"
-                        >
-                          {tech}
-                        </div>
-                      ))}
-                    </div>
-                    <div className="mt-8 text-center">
-                      <p className="text-muted-foreground text-sm">
-                        Soluciones empresariales modernas
-                      </p>
-                    </div>
+            <div className="relative">
+              <div className="aspect-square rounded-2xl overflow-hidden shadow-2xl">
+                <img
+                  src="https://images.unsplash.com/photo-1521737711867-e3b97375f902"
+                  alt="Equipo de desarrollo profesional"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="absolute -bottom-6 -left-6 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-xl border border-gray-100 dark:border-gray-700">
+                <div className="flex items-center gap-3">
+                  <CheckCircle2 className="w-8 h-8 text-blue-600" />
+                  <div>
+                    <div className="font-semibold text-gray-900 dark:text-white">+15 años</div>
+                    <div className="text-sm text-gray-600 dark:text-gray-400">de experiencia</div>
                   </div>
                 </div>
               </div>
@@ -265,57 +213,116 @@ export function Home() {
         </div>
       </section>
 
+      {/* Services Section */}
+      <section id="servicios" className="py-20 px-6 lg:px-8 bg-white dark:bg-gray-900">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <span className="text-sm font-semibold text-blue-600 tracking-wide uppercase">Servicios</span>
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mt-4 mb-4">
+              Soluciones empresariales completas
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+              Desde la integración de sistemas hasta la automatización con IA
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {services.map((service, index) => (
+              <Card key={index} className="border-2 border-gray-100 dark:border-gray-800 hover:border-blue-600 dark:hover:border-blue-500 hover:shadow-lg transition-all duration-300">
+                <CardHeader>
+                  <div className="w-16 h-16 bg-blue-50 dark:bg-blue-900/30 rounded-lg flex items-center justify-center text-blue-600 mb-4">
+                    {service.icon}
+                  </div>
+                  <CardTitle className="text-xl text-gray-900 dark:text-white">{service.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription className="text-base text-gray-600 dark:text-gray-400">
+                    {service.description}
+                  </CardDescription>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Process Section */}
+      <section id="proceso" className="py-20 px-6 lg:px-8 bg-gray-50 dark:bg-gray-950">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <span className="text-sm font-semibold text-blue-600 tracking-wide uppercase">Metodología</span>
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mt-4 mb-4">
+              Cómo trabajo
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+              Un proceso estructurado y profesional para garantizar resultados
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {processSteps.map((step, index) => (
+              <div key={index} className="relative">
+                <div className="text-6xl font-bold text-blue-100 dark:text-blue-900/50 mb-4">{step.number}</div>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">{step.title}</h3>
+                <p className="text-gray-600 dark:text-gray-400">{step.description}</p>
+                {index < processSteps.length - 1 && (
+                  <div className="hidden lg:block absolute top-8 -right-4 text-blue-300 dark:text-blue-700">
+                    <ArrowRight className="w-8 h-8" />
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Technologies Section */}
-      <section id="tecnologias" className="py-20 bg-muted/30" data-testid="tech-section">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Tecnologías que Domino</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Trabajo con las tecnologías más modernas y confiables del mercado para entregar 
-              soluciones robustas y escalables.
+      <section className="py-20 px-6 lg:px-8 bg-white dark:bg-gray-900">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <span className="text-sm font-semibold text-blue-600 tracking-wide uppercase">Stack Tecnológico</span>
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mt-4 mb-4">
+              Tecnologías y herramientas
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+              Experiencia con tecnologías modernas y herramientas empresariales
             </p>
           </div>
           <TechStackCategorized />
         </div>
       </section>
 
-      {/* Success Cases Section */}
-      <section id="casos" className="py-20" data-testid="cases-section">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Casos de Éxito</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Proyectos reales que han transformado la operación de empresas ecuatorianas.
+      {/* Cases Section */}
+      <section id="casos" className="py-20 px-6 lg:px-8 bg-gray-50 dark:bg-gray-950">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <span className="text-sm font-semibold text-blue-600 tracking-wide uppercase">Casos de Éxito</span>
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mt-4 mb-4">
+              Proyectos reales, resultados medibles
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+              Soluciones implementadas para empresas ecuatorianas
             </p>
           </div>
-
-          <div className="grid md:grid-cols-2 gap-6">
-            {successCases.map((caseItem, index) => (
-              <Card 
-                key={index} 
-                className="group hover:shadow-lg transition-all duration-300 border-2 hover:border-blue-500/50"
-                data-testid={`case-card-${index}`}
-              >
-                <CardHeader className="flex flex-row items-center gap-4">
-                  <div className="w-16 h-16 rounded-lg bg-white dark:bg-gray-800 border border-border flex items-center justify-center p-2 overflow-hidden">
-                    <Image 
-                      src={caseItem.logo} 
-                      alt={caseItem.name}
-                      width={48}
-                      height={48}
-                      className="object-contain"
-                    />
-                  </div>
-                  <div>
-                    <CardTitle className="text-xl">{caseItem.name}</CardTitle>
-                    <p className="text-sm text-blue-600 dark:text-blue-400 font-medium flex items-center gap-1">
-                      <CheckCircle className="w-4 h-4" />
-                      {caseItem.impact}
-                    </p>
+          <div className="grid lg:grid-cols-2 gap-8">
+            {cases.map((caseItem, index) => (
+              <Card key={index} className="border-2 border-gray-100 dark:border-gray-800 hover:shadow-xl transition-shadow overflow-hidden">
+                <CardHeader>
+                  <div className="flex items-start gap-4">
+                    <div className="w-20 h-20 bg-white dark:bg-gray-800 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md overflow-hidden border border-gray-100 dark:border-gray-700">
+                      <img src={caseItem.logo} alt={caseItem.title} className="w-full h-full object-contain p-2" />
+                    </div>
+                    <div className="flex-1">
+                      <CardTitle className="text-xl text-gray-900 dark:text-white mb-2">{caseItem.title}</CardTitle>
+                      <CardDescription className="text-base text-gray-600 dark:text-gray-400">
+                        {caseItem.description}
+                      </CardDescription>
+                    </div>
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground">{caseItem.description}</p>
+                  <div className="flex items-start gap-3 bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
+                    <CheckCircle2 className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                    <p className="text-sm text-gray-700 dark:text-gray-300 font-medium">{caseItem.result}</p>
+                  </div>
                 </CardContent>
               </Card>
             ))}
@@ -324,219 +331,142 @@ export function Home() {
       </section>
 
       {/* Contact Section */}
-      <section id="contacto" className="py-20 bg-muted/30" data-testid="contact-section">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4">¿Tienes un Proyecto en Mente?</h2>
-              <p className="text-muted-foreground max-w-2xl mx-auto">
-                Cuéntame sobre tu proyecto y encontraremos la mejor solución tecnológica para tu negocio.
-              </p>
-            </div>
-
-            <div className="grid lg:grid-cols-5 gap-8">
-              {/* Contact Info */}
-              <div className="lg:col-span-2 space-y-6">
-                <Card className="border-2">
-                  <CardContent className="pt-6">
-                    <div className="space-y-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
-                          <Mail className="w-5 h-5 text-blue-600" />
-                        </div>
-                        <div>
-                          <p className="text-sm text-muted-foreground">Email</p>
-                          <a href="mailto:juan@collantes.ec" className="font-medium hover:text-blue-600 transition-colors">
-                            juan@collantes.ec
-                          </a>
-                        </div>
-                      </div>
-
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-lg bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
-                          <Phone className="w-5 h-5 text-green-600" />
-                        </div>
-                        <div>
-                          <p className="text-sm text-muted-foreground">WhatsApp</p>
-                          <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="font-medium hover:text-green-600 transition-colors">
-                            +593 997 154 016
-                          </a>
-                        </div>
-                      </div>
-
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-lg bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center">
-                          <MapPin className="w-5 h-5 text-purple-600" />
-                        </div>
-                        <div>
-                          <p className="text-sm text-muted-foreground">Ubicación</p>
-                          <p className="font-medium">Quito, Ecuador</p>
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                {/* WhatsApp Button */}
-                <Button 
-                  asChild 
-                  className="w-full bg-green-600 hover:bg-green-700 text-white h-12"
-                  data-testid="whatsapp-btn"
-                >
-                  <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
-                    <MessageCircle className="mr-2 h-5 w-5" />
-                    Escribir por WhatsApp
-                    <ExternalLink className="ml-2 h-4 w-4" />
-                  </a>
-                </Button>
-              </div>
-
-              {/* Contact Form */}
-              <div className="lg:col-span-3">
-                <Card className="border-2">
-                  <CardContent className="pt-6">
-                    <form onSubmit={handleSubmit} className="space-y-4" data-testid="contact-form">
-                      <div className="grid sm:grid-cols-2 gap-4">
-                        <div>
-                          <label htmlFor="name" className="block text-sm font-medium mb-2">
-                            Nombre *
-                          </label>
-                          <Input
-                            id="name"
-                            placeholder="Tu nombre"
-                            value={formData.name}
-                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                            required
-                            data-testid="input-name"
-                          />
-                        </div>
-                        <div>
-                          <label htmlFor="email" className="block text-sm font-medium mb-2">
-                            Email *
-                          </label>
-                          <Input
-                            id="email"
-                            type="email"
-                            placeholder="tu@email.com"
-                            value={formData.email}
-                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                            required
-                            data-testid="input-email"
-                          />
-                        </div>
-                      </div>
-
-                      <div>
-                        <label htmlFor="company" className="block text-sm font-medium mb-2">
-                          Empresa
-                        </label>
-                        <Input
-                          id="company"
-                          placeholder="Nombre de tu empresa (opcional)"
-                          value={formData.company}
-                          onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                          data-testid="input-company"
-                        />
-                      </div>
-
-                      <div>
-                        <label htmlFor="message" className="block text-sm font-medium mb-2">
-                          Mensaje *
-                        </label>
-                        <Textarea
-                          id="message"
-                          placeholder="Cuéntame sobre tu proyecto..."
-                          rows={5}
-                          value={formData.message}
-                          onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                          required
-                          data-testid="input-message"
-                        />
-                      </div>
-
-                      <Button 
-                        type="submit" 
-                        className="w-full bg-blue-600 hover:bg-blue-700 h-12"
-                        disabled={isSubmitting}
-                        data-testid="submit-btn"
-                      >
-                        {isSubmitting ? (
-                          <>
-                            <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2" />
-                            Enviando...
-                          </>
-                        ) : (
-                          <>
-                            <Send className="mr-2 h-4 w-4" />
-                            Enviar Mensaje
-                          </>
-                        )}
-                      </Button>
-                    </form>
-                  </CardContent>
-                </Card>
-              </div>
-            </div>
+      <section id="contacto" className="py-20 px-6 lg:px-8 bg-white dark:bg-gray-900">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <span className="text-sm font-semibold text-blue-600 tracking-wide uppercase">Contacto</span>
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mt-4 mb-4">
+              ¿Utilizas ERP o facturación electrónica?
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-300">
+              Conversemos sobre cómo optimizar tus procesos y sistemas
+            </p>
           </div>
+          <Card className="border-2 border-gray-200 dark:border-gray-700">
+            <CardContent className="p-8">
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Nombre completo</label>
+                    <Input
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      placeholder="Tu nombre"
+                      required
+                      className="border-gray-300 dark:border-gray-600"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
+                    <Input
+                      name="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      placeholder="tu@email.com"
+                      required
+                      className="border-gray-300 dark:border-gray-600"
+                    />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Empresa</label>
+                  <Input
+                    name="company"
+                    value={formData.company}
+                    onChange={handleInputChange}
+                    placeholder="Nombre de tu empresa"
+                    className="border-gray-300 dark:border-gray-600"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Mensaje</label>
+                  <Textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    placeholder="Cuéntame sobre tu proyecto o necesidad..."
+                    rows={5}
+                    required
+                    className="border-gray-300 dark:border-gray-600"
+                  />
+                </div>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Button
+                    type="submit"
+                    size="lg"
+                    className="flex-1 bg-blue-600 hover:bg-blue-700 text-white"
+                    disabled={isSubmitting}
+                  >
+                    <Mail className="w-5 h-5 mr-2" />
+                    {isSubmitting ? 'Enviando...' : 'Enviar mensaje'}
+                  </Button>
+                  <Button
+                    type="button"
+                    onClick={() => window.open(whatsappLink, '_blank')}
+                    size="lg"
+                    variant="outline"
+                    className="flex-1 border-2 border-blue-600 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20"
+                  >
+                    <MessageSquare className="w-5 h-5 mr-2" />
+                    Escribir por WhatsApp
+                  </Button>
+                </div>
+              </form>
+            </CardContent>
+          </Card>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-border bg-card" data-testid="footer">
-        <div className="container mx-auto px-4 py-12">
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Logo & Description */}
-            <div className="space-y-4">
-              <Logo width={140} height={40} />
-              <p className="text-sm text-muted-foreground">
-                Soluciones de integración de sistemas y desarrollo web para empresas ecuatorianas.
+      <footer className="bg-gray-900 text-gray-300 py-12 px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-8 mb-8">
+            <div>
+              <div className="mb-4">
+                <svg width="180" height="50" viewBox="0 0 240 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="logoGradientFooter" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" style={{stopColor: '#3b82f6', stopOpacity: 1}} />
+                      <stop offset="100%" style={{stopColor: '#1d4ed8', stopOpacity: 1}} />
+                    </linearGradient>
+                  </defs>
+                  <path d="M 18 12 L 36 3 L 54 12 L 54 30 L 36 39 L 18 30 Z" fill="url(#logoGradientFooter)"/>
+                  <text x="36" y="27" fontFamily="Arial, sans-serif" fontSize="19" fontWeight="700" fill="white" textAnchor="middle">J2</text>
+                  <text x="65" y="30" fontFamily="Arial, sans-serif" fontSize="28" fontWeight="600" fill="white" letterSpacing="-0.5">Systems</text>
+                  <line x1="65" y1="37" x2="185" y2="37" stroke="white" strokeWidth="2.5" opacity="0.3"/>
+                </svg>
+              </div>
+              <p className="text-gray-400">
+                Integración de sistemas y desarrollo de soluciones empresariales en Ecuador.
               </p>
             </div>
-
-            {/* Quick Links */}
             <div>
-              <h3 className="font-semibold mb-4">Enlaces Rápidos</h3>
-              <nav className="space-y-2">
-                {navLinks.map((link) => (
-                  <a
-                    key={link.name}
-                    href={link.href}
-                    className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {link.name}
-                  </a>
-                ))}
-              </nav>
+              <h3 className="text-white font-semibold mb-4">Servicios</h3>
+              <ul className="space-y-2 text-gray-400">
+                <li>Integración de Sistemas</li>
+                <li>Facturación Electrónica</li>
+                <li>Desarrollo Web</li>
+                <li>Automatización con IA</li>
+              </ul>
             </div>
-
-            {/* Contact Info */}
             <div>
-              <h3 className="font-semibold mb-4">Contacto</h3>
-              <div className="space-y-2 text-sm text-muted-foreground">
-                <p className="flex items-center gap-2">
+              <h3 className="text-white font-semibold mb-4">Contacto</h3>
+              <ul className="space-y-2 text-gray-400">
+                <li className="flex items-center gap-2">
                   <Mail className="w-4 h-4" />
                   juan@collantes.ec
-                </p>
-                <p className="flex items-center gap-2">
-                  <Phone className="w-4 h-4" />
-                  +593 997 154 016
-                </p>
-                <p className="flex items-center gap-2">
-                  <MapPin className="w-4 h-4" />
-                  Quito, Ecuador
-                </p>
-              </div>
+                </li>
+                <li className="flex items-center gap-2">
+                  <MessageSquare className="w-4 h-4" />
+                  WhatsApp: +593 997 154 016
+                </li>
+              </ul>
             </div>
           </div>
-
-          {/* Bottom Bar */}
-          <div className="mt-8 pt-8 border-t border-border flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-muted-foreground">
-              © {new Date().getFullYear()} J2Systems. Todos los derechos reservados.
-            </p>
-            <p className="text-sm text-muted-foreground">
-              Hecho con dedicación en Ecuador
-            </p>
+          <div className="border-t border-gray-800 pt-8 text-center text-gray-500">
+            <p>&copy; {new Date().getFullYear()} J2Systems. Todos los derechos reservados.</p>
           </div>
         </div>
       </footer>
