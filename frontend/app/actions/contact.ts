@@ -18,10 +18,18 @@ export async function sendContactEmail(formData: ContactFormData) {
       },
     });
 
+    // Verificar conexión
+    await transporter.verify();
+
     // HTML del email con logo J2Systems
     const html = `
+      <!DOCTYPE html>
       <html>
-        <body style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+        <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        </head>
+        <body style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f3f4f6;">
           <div style="background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
             <svg width="180" height="50" viewBox="0 0 240 70" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin: 0 auto 15px;">
               <defs>
@@ -35,21 +43,21 @@ export async function sendContactEmail(formData: ContactFormData) {
               <text x="65" y="30" font-family="Arial, sans-serif" font-size="28" font-weight="600" fill="white" letter-spacing="-0.5">Systems</text>
               <line x1="65" y1="37" x2="185" y2="37" stroke="white" stroke-width="2.5" opacity="0.3"/>
             </svg>
-            <h1 style="color: white; margin: 10px 0 0 0;">Nuevo Mensaje de Contacto</h1>
+            <h1 style="color: white; margin: 10px 0 0 0; font-size: 24px;">Nuevo Mensaje de Contacto</h1>
           </div>
           
-          <div style="background: #f9fafb; padding: 30px; border-radius: 0 0 10px 10px;">
-            <h2 style="color: #1f2937; margin-top: 0;">Detalles del Contacto</h2>
+          <div style="background: #ffffff; padding: 30px; border-radius: 0 0 10px 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+            <h2 style="color: #1f2937; margin-top: 0; border-bottom: 2px solid #3b82f6; padding-bottom: 10px;">Detalles del Contacto</h2>
             
-            <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-              <p style="margin: 10px 0;"><strong>Nombre:</strong> ${validated.name}</p>
-              <p style="margin: 10px 0;"><strong>Email:</strong> ${validated.email}</p>
-              <p style="margin: 10px 0;"><strong>Empresa:</strong> ${validated.company || 'No especificada'}</p>
+            <div style="background: #f9fafb; padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #3b82f6;">
+              <p style="margin: 10px 0;"><strong style="color: #3b82f6;">Nombre:</strong> ${validated.name}</p>
+              <p style="margin: 10px 0;"><strong style="color: #3b82f6;">Email:</strong> <a href="mailto:${validated.email}" style="color: #1d4ed8;">${validated.email}</a></p>
+              <p style="margin: 10px 0;"><strong style="color: #3b82f6;">Empresa:</strong> ${validated.company || 'No especificada'}</p>
             </div>
             
-            <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-              <h3 style="color: #1f2937; margin-top: 0;">Mensaje:</h3>
-              <p style="color: #4b5563; line-height: 1.6;">${validated.message}</p>
+            <div style="background: #f9fafb; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+              <h3 style="color: #1f2937; margin-top: 0; font-size: 16px;">Mensaje:</h3>
+              <p style="color: #4b5563; line-height: 1.6; white-space: pre-wrap;">${validated.message}</p>
             </div>
             
             <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e5e7eb;">
@@ -57,7 +65,7 @@ export async function sendContactEmail(formData: ContactFormData) {
                 Este mensaje fue enviado desde el formulario de contacto de J2Systems
               </p>
               <p style="color: #6b7280; font-size: 12px; text-align: center; margin: 5px 0;">
-                juan@collantes.ec | +593 997 154 016
+                <a href="mailto:juan@collantes.ec" style="color: #3b82f6;">juan@collantes.ec</a> | <a href="https://wa.me/593997154016" style="color: #3b82f6;">+593 997 154 016</a>
               </p>
             </div>
           </div>
@@ -67,9 +75,10 @@ export async function sendContactEmail(formData: ContactFormData) {
 
     // Enviar email
     await transporter.sendMail({
-      from: `${process.env.EMAIL_FROM_NAME} <${process.env.EMAIL_FROM}>`,
-      to: process.env.EMAIL_FROM,
-      subject: `Nuevo Contacto: ${validated.name}`,
+      from: `"J2Systems - Contacto" <${process.env.GMAIL_USER}>`,
+      to: process.env.GMAIL_USER,
+      replyTo: validated.email,
+      subject: `Nuevo Contacto: ${validated.name} - ${validated.company || 'Sin empresa'}`,
       html,
     });
 
@@ -81,6 +90,6 @@ export async function sendContactEmail(formData: ContactFormData) {
       return { success: false, message: 'Datos inválidos', errors: error.errors };
     }
     
-    return { success: false, message: 'Error al enviar el email' };
+    return { success: false, message: 'Error al enviar el email. Por favor, intenta de nuevo.' };
   }
 }
