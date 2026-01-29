@@ -153,23 +153,26 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="fixed top-0 w-full bg-white/80 backdrop-blur-md border-b border-gray-200 z-50">
+      <header className="fixed top-0 w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 z-50">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-3">
           <div className="flex justify-between items-center">
             <Logo width={220} height={65} />
             <nav className="hidden md:flex gap-8 items-center">
-              <a href="#servicios" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">Servicios</a>
-              <a href="#proceso" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">Proceso</a>
-              <a href="#casos" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">Casos</a>
-              <a href="#contacto" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">Contacto</a>
+              <a href="#servicios" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium">Servicios</a>
+              <a href="#proceso" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium">Proceso</a>
+              <a href="#casos" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium">Casos</a>
+              <a href="#contacto" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium">Contacto</a>
             </nav>
-            <Button
-              onClick={() => document.getElementById('contacto').scrollIntoView({ behavior: 'smooth' })}
-              className="bg-blue-600 hover:bg-blue-700 text-white"
-            >
-              <MessageSquare className="w-4 h-4 mr-2" />
-              Contáctame
-            </Button>
+            <div className="flex items-center gap-3">
+              <ThemeToggle />
+              <Button
+                onClick={() => document.getElementById('contacto').scrollIntoView({ behavior: 'smooth' })}
+                className="bg-blue-600 hover:bg-blue-700 text-white"
+              >
+                <MessageSquare className="w-4 h-4 mr-2" />
+                Contáctame
+              </Button>
+            </div>
           </div>
         </div>
       </header>
