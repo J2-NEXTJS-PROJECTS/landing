@@ -30,13 +30,15 @@ npm install
 
 3. **Configurar variables de entorno:**
 ```bash
-cp .env.template .env.local
+cp .env.template .env
 ```
 
-4. **Editar `.env.local` con tus credenciales:**
+4. **Editar `.env` con tus credenciales:**
 ```env
 GMAIL_USER=tu-email@gmail.com
 GMAIL_PASS=tu-app-password
+EMAIL_FROM=tu-email@gmail.com
+EMAIL_FROM_NAME=tu-email@gmail.com
 NEXT_PUBLIC_WHATSAPP_NUMBER=+593XXXXXXXXX
 ```
 
