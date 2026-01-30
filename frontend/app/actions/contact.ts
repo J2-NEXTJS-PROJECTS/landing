@@ -6,10 +6,10 @@ import { z } from 'zod';
 
 export async function sendContactEmail(formData: ContactFormData) {
   try {
-    // Validar datos
+    //1. Parsear y validar datos
     const validated = contactSchema.parse(formData);
 
-    // Configurar transporte de email
+    //2. Configurar transporte de email
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
@@ -18,7 +18,7 @@ export async function sendContactEmail(formData: ContactFormData) {
       },
     });
 
-    // Verificar conexión
+    //3. Verificar conexión
     await transporter.verify();
 
     // HTML del email con logo J2Systems

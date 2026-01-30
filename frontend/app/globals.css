@@ -78,3 +78,10 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background: #2563eb;
 }
+
+@layer components {
+  .my-border {
+    @apply border-2 border-red-600;
+  }
+  
+}

@@ -1,15 +1,21 @@
 "use client";
 
-import React, { useState } from 'react';
-import { Button } from './ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
-import { Input } from './ui/input';
-import { Textarea } from './ui/textarea';
-import { toast } from 'sonner';
-import { Logo } from './Logo';
-import { TechStackCategorized } from './TechStackCategorized';
-import { ThemeToggle } from './ThemeToggle';
-import { sendContactEmail } from '@/app/actions/contact';
+import React, { useState } from "react";
+import { Button } from "./ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
+import { Input } from "./ui/input";
+import { Textarea } from "./ui/textarea";
+import { toast } from "sonner";
+import { Logo } from "./Logo";
+import { TechStackCategorized } from "./TechStackCategorized";
+import { ThemeToggle } from "./ThemeToggle";
+import { sendContactEmail } from "@/app/actions/contact";
 import {
   ArrowRight,
   CheckCircle2,
@@ -20,24 +26,27 @@ import {
   Layers,
   MessageSquare,
   Mail,
-  Zap
-} from 'lucide-react';
+  Zap,
+} from "lucide-react";
+import Image from "next/image";
 
 export function Home() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    company: '',
-    message: ''
+    name: "",
+    email: "",
+    company: "",
+    message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
@@ -46,14 +55,16 @@ export function Home() {
         toast.success("Mensaje enviado", {
           description: "Gracias por contactarme. Te responderé pronto.",
         });
-        setFormData({ name: '', email: '', company: '', message: '' });
+        setFormData({ name: "", email: "", company: "", message: "" });
       } else {
         toast.error("Error al enviar", {
-          description: result.message || "No se pudo enviar el mensaje. Intenta nuevamente.",
+          description:
+            result.message ||
+            "No se pudo enviar el mensaje. Intenta nuevamente.",
         });
       }
     } catch (error) {
-      console.error('Error sending contact message:', error);
+      console.error("Error sending contact message:", error);
       toast.error("Error al enviar", {
         description: "No se pudo enviar el mensaje. Intenta nuevamente.",
       });
@@ -63,109 +74,149 @@ export function Home() {
   };
 
   const whatsappNumber = "+593997154016";
-  const whatsappMessage = "Hola, me interesa conocer más sobre los servicios de integración de sistemas.";
+  const whatsappMessage =
+    "Hola, me interesa conocer más sobre los servicios de integración de sistemas.";
+  //encodeURIComponent(): Sirve para codificar (escapar) un texto para que pueda ir dentro de una URL sin romperla.
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
 
   const services = [
     {
       icon: <Layers className="w-8 h-8" />,
       title: "Integración de Sistemas",
-      description: "Conecta tus sistemas internos o POS con Odoo, Datil, Contifico y otras plataformas mediante APIs robustas y escalables."
+      description:
+        "Conecta tus sistemas internos o POS con Odoo, Datil, Contifico y otras plataformas mediante APIs robustas y escalables.",
     },
     {
       icon: <FileText className="w-8 h-8" />,
       title: "Facturación Electrónica",
-      description: "Implementación completa de facturación electrónica cumpliendo con la normativa ecuatoriana del SRI."
+      description:
+        "Implementación completa de facturación electrónica cumpliendo con la normativa ecuatoriana del SRI.",
     },
     {
       icon: <Code2 className="w-8 h-8" />,
       title: "Desarrollo Web a Medida",
-      description: "Aplicaciones web personalizadas para operaciones internas o plataformas de negocio con tecnologías modernas."
+      description:
+        "Aplicaciones web personalizadas para operaciones internas o plataformas de negocio con tecnologías modernas.",
     },
     {
       icon: <Workflow className="w-8 h-8" />,
       title: "Automatización con IA",
-      description: "Automatiza flujos de trabajo complejos y crea agentes inteligentes usando n8n y tecnologías de IA."
+      description:
+        "Automatiza flujos de trabajo complejos y crea agentes inteligentes usando n8n y tecnologías de IA.",
     },
     {
       icon: <Database className="w-8 h-8" />,
       title: "Consultoría Técnica",
-      description: "Asesoría especializada en arquitectura de software, optimización de procesos y selección de tecnologías."
+      description:
+        "Asesoría especializada en arquitectura de software, optimización de procesos y selección de tecnologías.",
     },
     {
       icon: <Zap className="w-8 h-8" />,
       title: "Optimización de Procesos",
-      description: "Análisis y mejora de procesos empresariales mediante soluciones tecnológicas eficientes y escalables."
-    }
+      description:
+        "Análisis y mejora de procesos empresariales mediante soluciones tecnológicas eficientes y escalables.",
+    },
   ];
 
   const processSteps = [
     {
       number: "01",
       title: "Análisis",
-      description: "Evaluación detallada de procesos y necesidades del negocio"
+      description: "Evaluación detallada de procesos y necesidades del negocio",
     },
     {
       number: "02",
       title: "Diseño",
-      description: "Arquitectura de solución y definición de alcance técnico"
+      description: "Arquitectura de solución y definición de alcance técnico",
     },
     {
       number: "03",
       title: "Implementación",
-      description: "Desarrollo, integración y pruebas exhaustivas"
+      description: "Desarrollo, integración y pruebas exhaustivas",
     },
     {
       number: "04",
       title: "Soporte",
-      description: "Acompañamiento continuo y optimización del sistema"
-    }
+      description: "Acompañamiento continuo y optimización del sistema",
+    },
   ];
 
   const cases = [
     {
       title: "Grobandeli - Banaexport",
-      description: "Sistema de gestión documental, monitoreo y tracking de contenedores en tiempo real.",
-      result: "Oferta de valor agregado y canal de CRM para que los clientes puedan ir gestionando su documentación y monitoreo de su contenedor.",
-      logo: "/case-logos/grobandeli.png"
+      description:
+        "Sistema de gestión documental, monitoreo y tracking de contenedores en tiempo real.",
+      result:
+        "Oferta de valor agregado y canal de CRM para que los clientes puedan ir gestionando su documentación y monitoreo de su contenedor.",
+      logo: "/case-logos/grobandeli.png",
     },
     {
       title: "Ecuaweb",
-      description: "Automatización completa: Checkout, pago con tarjeta de crédito, activación de servicios, facturación electrónica e integración con el flujo de ERP.",
-      result: "Procesamiento automático del 100% de las transacciones y reducción de un 95% de carritos de compras abandonados.",
-      logo: "/case-logos/ecuaweb.png"
+      description:
+        "Automatización completa: Checkout, pago con tarjeta de crédito, activación de servicios, facturación electrónica e integración con el flujo de ERP.",
+      result:
+        "Procesamiento automático del 100% de las transacciones y reducción de un 95% de carritos de compras abandonados.",
+      logo: "/case-logos/ecuaweb.png",
     },
     {
       title: "Ecuahosting",
-      description: "Automatización completa: Checkout, pago con tarjeta de crédito, activación de servicios, facturación electrónica e integración con el flujo de ERP.",
-      result: "Procesamiento automático del 100% de las transacciones y reducción de un 95% de carritos de compras abandonados.",
-      logo: "/case-logos/ecuahosting.png"
+      description:
+        "Automatización completa: Checkout, pago con tarjeta de crédito, activación de servicios, facturación electrónica e integración con el flujo de ERP.",
+      result:
+        "Procesamiento automático del 100% de las transacciones y reducción de un 95% de carritos de compras abandonados.",
+      logo: "/case-logos/ecuahosting.png",
     },
     {
       title: "ECUADORDOMAIN S.A.",
-      description: "Asesoría para mejores practicas de diseño de infraestructura y Capacitaciones.",
-      result: "Infraestructura estable, tolerante a fallos, resiliencia óptima.",
-      logo: "/case-logos/nicec.png"
-    }
+      description:
+        "Asesoría para mejores practicas de diseño de infraestructura y Capacitaciones.",
+      result:
+        "Infraestructura estable, tolerante a fallos, resiliencia óptima.",
+      logo: "/case-logos/nicec.png",
+    },
   ];
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
       {/* Header */}
       <header className="fixed top-0 w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 z-50">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-3">
-          <div className="flex justify-between items-center">
+        <div className=" max-w-7xl mx-auto px-6 lg:px-8 py-3">
+          <div className=" flex justify-between items-center">
             <Logo width={220} height={65} />
-            <nav className="hidden md:flex gap-8 items-center">
-              <a href="#servicios" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium">Servicios</a>
-              <a href="#proceso" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium">Proceso</a>
-              <a href="#casos" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium">Casos</a>
-              <a href="#contacto" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium">Contacto</a>
+            <nav className=" hidden md:flex gap-8 items-center">
+              <a
+                href="#servicios"
+                className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
+              >
+                Servicios
+              </a>
+              <a
+                href="#proceso"
+                className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
+              >
+                Proceso
+              </a>
+              <a
+                href="#casos"
+                className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
+              >
+                Casos
+              </a>
+              <a
+                href="#contacto"
+                className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
+              >
+                Contacto
+              </a>
             </nav>
-            <div className="flex items-center gap-3">
+            <div className=" flex items-center gap-3">
               <ThemeToggle />
               <Button
-                onClick={() => document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' })}
+                onClick={() =>
+                  document
+                    .getElementById("contacto")
+                    ?.scrollIntoView({ behavior: "smooth" })
+                }
                 className="bg-blue-600 hover:bg-blue-700 text-white"
               >
                 <MessageSquare className="w-4 h-4 mr-2" />
@@ -182,29 +233,38 @@ export function Home() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8">
               <div className="inline-block">
-                <span className="text-sm font-semibold text-blue-600 tracking-wide uppercase">Integración de Sistemas</span>
+                <span className="text-sm font-semibold text-blue-600 tracking-wide uppercase">
+                  Integración de Sistemas
+                </span>
               </div>
               <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white leading-tight">
                 Automatiza procesos y conecta tus sistemas críticos
               </h1>
               <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
-                Especialista en integración de ERP, facturación electrónica y desarrollo de soluciones empresariales para Ecuador.
+                Especialista en integración de ERP, facturación electrónica y
+                desarrollo de soluciones empresariales para Ecuador.
               </p>
             </div>
             <div className="relative">
               <div className="aspect-square rounded-2xl overflow-hidden shadow-2xl">
-                <img
+                <Image
                   src="https://images.unsplash.com/photo-1521737711867-e3b97375f902"
                   alt="Equipo de desarrollo profesional"
-                  className="w-full h-full object-cover"
+                  // className="w-full h-full object-cover"
+                  fill
+                  className="rounded-2xl object-cover"
                 />
               </div>
               <div className="absolute -bottom-6 -left-6 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-xl border border-gray-100 dark:border-gray-700">
                 <div className="flex items-center gap-3">
                   <CheckCircle2 className="w-8 h-8 text-blue-600" />
                   <div>
-                    <div className="font-semibold text-gray-900 dark:text-white">+15 años</div>
-                    <div className="text-sm text-gray-600 dark:text-gray-400">de experiencia</div>
+                    <div className="font-semibold text-gray-900 dark:text-white">
+                      +15 años
+                    </div>
+                    <div className="text-sm text-gray-600 dark:text-gray-400">
+                      de experiencia
+                    </div>
                   </div>
                 </div>
               </div>
@@ -214,10 +274,15 @@ export function Home() {
       </section>
 
       {/* Services Section */}
-      <section id="servicios" className="py-20 px-6 lg:px-8 bg-white dark:bg-gray-900">
+      <section
+        id="servicios"
+        className=" py-20 px-6 lg:px-8 bg-white dark:bg-gray-900"
+      >
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <span className="text-sm font-semibold text-blue-600 tracking-wide uppercase">Servicios</span>
+            <span className="text-sm font-semibold text-blue-600 tracking-wide uppercase">
+              Servicios
+            </span>
             <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mt-4 mb-4">
               Soluciones empresariales completas
             </h2>
@@ -225,14 +290,19 @@ export function Home() {
               Desde la integración de sistemas hasta la automatización con IA
             </p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="my-border grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, index) => (
-              <Card key={index} className="border-2 border-gray-100 dark:border-gray-800 hover:border-blue-600 dark:hover:border-blue-500 hover:shadow-lg transition-all duration-300">
+              <Card
+                key={index}
+                className="border-2 border-gray-100 dark:border-gray-800 hover:border-blue-600 dark:hover:border-blue-500 hover:shadow-lg transition-all duration-300"
+              >
                 <CardHeader>
                   <div className="w-16 h-16 bg-blue-50 dark:bg-blue-900/30 rounded-lg flex items-center justify-center text-blue-600 mb-4">
                     {service.icon}
                   </div>
-                  <CardTitle className="text-xl text-gray-900 dark:text-white">{service.title}</CardTitle>
+                  <CardTitle className="text-xl text-gray-900 dark:text-white">
+                    {service.title}
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <CardDescription className="text-base text-gray-600 dark:text-gray-400">
@@ -246,10 +316,15 @@ export function Home() {
       </section>
 
       {/* Process Section */}
-      <section id="proceso" className="py-20 px-6 lg:px-8 bg-gray-50 dark:bg-gray-950">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <span className="text-sm font-semibold text-blue-600 tracking-wide uppercase">Metodología</span>
+      <section
+        id="proceso"
+        className=" py-20 px-6 lg:px-8 bg-gray-50 dark:bg-gray-950"
+      >
+        <div className=" max-w-7xl mx-auto">
+          <div className=" text-center mb-16">
+            <span className="text-sm font-semibold text-blue-600 tracking-wide uppercase">
+              Metodología
+            </span>
             <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mt-4 mb-4">
               Cómo trabajo
             </h2>
@@ -257,12 +332,18 @@ export function Home() {
               Un proceso estructurado y profesional para garantizar resultados
             </p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className=" grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {processSteps.map((step, index) => (
-              <div key={index} className="relative">
-                <div className="text-6xl font-bold text-blue-100 dark:text-blue-900/50 mb-4">{step.number}</div>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">{step.title}</h3>
-                <p className="text-gray-600 dark:text-gray-400">{step.description}</p>
+              <div key={index} className=" relative">
+                <div className="text-6xl font-bold text-blue-100 dark:text-blue-900/50 mb-4">
+                  {step.number}
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
+                  {step.title}
+                </h3>
+                <p className="text-gray-600 dark:text-gray-400">
+                  {step.description}
+                </p>
                 {index < processSteps.length - 1 && (
                   <div className="hidden lg:block absolute top-8 -right-4 text-blue-300 dark:text-blue-700">
                     <ArrowRight className="w-8 h-8" />
@@ -278,7 +359,9 @@ export function Home() {
       <section className="py-20 px-6 lg:px-8 bg-white dark:bg-gray-900">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <span className="text-sm font-semibold text-blue-600 tracking-wide uppercase">Stack Tecnológico</span>
+            <span className="text-sm font-semibold text-blue-600 tracking-wide uppercase">
+              Stack Tecnológico
+            </span>
             <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mt-4 mb-4">
               Tecnologías y herramientas
             </h2>
@@ -291,10 +374,15 @@ export function Home() {
       </section>
 
       {/* Cases Section */}
-      <section id="casos" className="py-20 px-6 lg:px-8 bg-gray-50 dark:bg-gray-950">
+      <section
+        id="casos"
+        className="py-20 px-6 lg:px-8 bg-gray-50 dark:bg-gray-950"
+      >
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <span className="text-sm font-semibold text-blue-600 tracking-wide uppercase">Casos de Éxito</span>
+            <span className="text-sm font-semibold text-blue-600 tracking-wide uppercase">
+              Casos de Éxito
+            </span>
             <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mt-4 mb-4">
               Proyectos reales, resultados medibles
             </h2>
@@ -304,14 +392,25 @@ export function Home() {
           </div>
           <div className="grid lg:grid-cols-2 gap-8">
             {cases.map((caseItem, index) => (
-              <Card key={index} className="border-2 border-gray-100 dark:border-gray-800 hover:shadow-xl transition-shadow overflow-hidden">
+              <Card
+                key={index}
+                className="border-2 border-gray-100 dark:border-gray-800 hover:shadow-xl transition-shadow overflow-hidden"
+              >
                 <CardHeader>
                   <div className="flex items-start gap-4">
-                    <div className="w-20 h-20 bg-white dark:bg-gray-800 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md overflow-hidden border border-gray-100 dark:border-gray-700">
-                      <img src={caseItem.logo} alt={caseItem.title} className="w-full h-full object-contain p-2" />
+                    <div className="w-20 h-20 bg-white dark:bg-gray-800 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md overflow-hidden border border-gray-100 dark:border-gray-700  relative">
+                      <Image
+                        src={caseItem.logo}
+                        alt={caseItem.title}
+                        //className="w-full h-full object-contain p-2"
+                        fill
+                        className="object-contain p-2"
+                      />
                     </div>
                     <div className="flex-1">
-                      <CardTitle className="text-xl text-gray-900 dark:text-white mb-2">{caseItem.title}</CardTitle>
+                      <CardTitle className="text-xl text-gray-900 dark:text-white mb-2">
+                        {caseItem.title}
+                      </CardTitle>
                       <CardDescription className="text-base text-gray-600 dark:text-gray-400">
                         {caseItem.description}
                       </CardDescription>
@@ -321,7 +420,9 @@ export function Home() {
                 <CardContent>
                   <div className="flex items-start gap-3 bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
                     <CheckCircle2 className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
-                    <p className="text-sm text-gray-700 dark:text-gray-300 font-medium">{caseItem.result}</p>
+                    <p className="text-sm text-gray-700 dark:text-gray-300 font-medium">
+                      {caseItem.result}
+                    </p>
                   </div>
                 </CardContent>
               </Card>
@@ -331,10 +432,15 @@ export function Home() {
       </section>
 
       {/* Contact Section */}
-      <section id="contacto" className="py-20 px-6 lg:px-8 bg-white dark:bg-gray-900">
+      <section
+        id="contacto"
+        className="py-20 px-6 lg:px-8 bg-white dark:bg-gray-900"
+      >
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <span className="text-sm font-semibold text-blue-600 tracking-wide uppercase">Contacto</span>
+            <span className="text-sm font-semibold text-blue-600 tracking-wide uppercase">
+              Contacto
+            </span>
             <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mt-4 mb-4">
               ¿Utilizas ERP o facturación electrónica?
             </h2>
@@ -347,7 +453,9 @@ export function Home() {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Nombre completo</label>
+                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                      Nombre completo
+                    </label>
                     <Input
                       name="name"
                       value={formData.name}
@@ -358,7 +466,9 @@ export function Home() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
+                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                      Email
+                    </label>
                     <Input
                       name="email"
                       type="email"
@@ -371,7 +481,9 @@ export function Home() {
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Empresa</label>
+                  <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                    Empresa
+                  </label>
                   <Input
                     name="company"
                     value={formData.company}
@@ -381,7 +493,9 @@ export function Home() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Mensaje</label>
+                  <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                    Mensaje
+                  </label>
                   <Textarea
                     name="message"
                     value={formData.message}
@@ -400,11 +514,11 @@ export function Home() {
                     disabled={isSubmitting}
                   >
                     <Mail className="w-5 h-5 mr-2" />
-                    {isSubmitting ? 'Enviando...' : 'Enviar mensaje'}
+                    {isSubmitting ? "Enviando..." : "Enviar mensaje"}
                   </Button>
                   <Button
                     type="button"
-                    onClick={() => window.open(whatsappLink, '_blank')}
+                    onClick={() => window.open(whatsappLink, "_blank")}
                     size="lg"
                     variant="outline"
                     className="flex-1 border-2 border-blue-600 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20"
@@ -425,21 +539,71 @@ export function Home() {
           <div className="grid md:grid-cols-3 gap-8 mb-8">
             <div>
               <div className="mb-4">
-                <svg width="180" height="50" viewBox="0 0 240 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg
+                  width="180"
+                  height="50"
+                  viewBox="0 0 240 70"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
                   <defs>
-                    <linearGradient id="logoGradientFooter" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" style={{stopColor: '#3b82f6', stopOpacity: 1}} />
-                      <stop offset="100%" style={{stopColor: '#1d4ed8', stopOpacity: 1}} />
+                    <linearGradient
+                      id="logoGradientFooter"
+                      x1="0%"
+                      y1="0%"
+                      x2="100%"
+                      y2="100%"
+                    >
+                      <stop
+                        offset="0%"
+                        style={{ stopColor: "#3b82f6", stopOpacity: 1 }}
+                      />
+                      <stop
+                        offset="100%"
+                        style={{ stopColor: "#1d4ed8", stopOpacity: 1 }}
+                      />
                     </linearGradient>
                   </defs>
-                  <path d="M 18 12 L 36 3 L 54 12 L 54 30 L 36 39 L 18 30 Z" fill="url(#logoGradientFooter)"/>
-                  <text x="36" y="27" fontFamily="Arial, sans-serif" fontSize="19" fontWeight="700" fill="white" textAnchor="middle">J2</text>
-                  <text x="65" y="30" fontFamily="Arial, sans-serif" fontSize="28" fontWeight="600" fill="white" letterSpacing="-0.5">Systems</text>
-                  <line x1="65" y1="37" x2="185" y2="37" stroke="white" strokeWidth="2.5" opacity="0.3"/>
+                  <path
+                    d="M 18 12 L 36 3 L 54 12 L 54 30 L 36 39 L 18 30 Z"
+                    fill="url(#logoGradientFooter)"
+                  />
+                  <text
+                    x="36"
+                    y="27"
+                    fontFamily="Arial, sans-serif"
+                    fontSize="19"
+                    fontWeight="700"
+                    fill="white"
+                    textAnchor="middle"
+                  >
+                    J2
+                  </text>
+                  <text
+                    x="65"
+                    y="30"
+                    fontFamily="Arial, sans-serif"
+                    fontSize="28"
+                    fontWeight="600"
+                    fill="white"
+                    letterSpacing="-0.5"
+                  >
+                    Systems
+                  </text>
+                  <line
+                    x1="65"
+                    y1="37"
+                    x2="185"
+                    y2="37"
+                    stroke="white"
+                    strokeWidth="2.5"
+                    opacity="0.3"
+                  />
                 </svg>
               </div>
               <p className="text-gray-400">
-                Integración de sistemas y desarrollo de soluciones empresariales en Ecuador.
+                Integración de sistemas y desarrollo de soluciones empresariales
+                en Ecuador.
               </p>
             </div>
             <div>
@@ -466,7 +630,10 @@ export function Home() {
             </div>
           </div>
           <div className="border-t border-gray-800 pt-8 text-center text-gray-500">
-            <p>&copy; {new Date().getFullYear()} J2Systems. Todos los derechos reservados.</p>
+            <p>
+              &copy; {new Date().getFullYear()} J2Systems. Todos los derechos
+              reservados.
+            </p>
           </div>
         </div>
       </footer>
