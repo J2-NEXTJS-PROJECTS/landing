@@ -1,181 +1,16 @@
 "use client";
-
-import React, { useState } from "react";
 import { Button } from "./ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "./ui/card";
-import { Input } from "./ui/input";
-import { Textarea } from "./ui/textarea";
-import { toast } from "sonner";
 import { Logo } from "./Logo";
 import { TechStackCategorized } from "./TechStackCategorized";
 import { ThemeToggle } from "./ThemeToggle";
-import { sendContactEmail } from "@/app/actions/contact";
-import {
-  ArrowRight,
-  CheckCircle2,
-  Code2,
-  Database,
-  FileText,
-  Workflow,
-  Layers,
-  MessageSquare,
-  Mail,
-  Zap,
-} from "lucide-react";
+import { CheckCircle2, MessageSquare, Mail } from "lucide-react";
 import Image from "next/image";
+import { ServiceCard } from "./ServiceCard";
+import { UseCaseCard } from "./UseCaseCard";
+import { ProcessContent } from "./ProcessContent";
+import { ContactForm } from "./ContactForm";
 
 export function Home() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    company: "",
-    message: "",
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    try {
-      const result = await sendContactEmail(formData);
-      if (result.success) {
-        toast.success("Mensaje enviado", {
-          description: "Gracias por contactarme. Te responderé pronto.",
-        });
-        setFormData({ name: "", email: "", company: "", message: "" });
-      } else {
-        toast.error("Error al enviar", {
-          description:
-            result.message ||
-            "No se pudo enviar el mensaje. Intenta nuevamente.",
-        });
-      }
-    } catch (error) {
-      console.error("Error sending contact message:", error);
-      toast.error("Error al enviar", {
-        description: "No se pudo enviar el mensaje. Intenta nuevamente.",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const whatsappNumber = "+593997154016";
-  const whatsappMessage =
-    "Hola, me interesa conocer más sobre los servicios de integración de sistemas.";
-  //encodeURIComponent(): Sirve para codificar (escapar) un texto para que pueda ir dentro de una URL sin romperla.
-  const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
-
-  const services = [
-    {
-      icon: <Layers className="w-8 h-8" />,
-      title: "Integración de Sistemas",
-      description:
-        "Conecta tus sistemas internos o POS con Odoo, Datil, Contifico y otras plataformas mediante APIs robustas y escalables.",
-    },
-    {
-      icon: <FileText className="w-8 h-8" />,
-      title: "Facturación Electrónica",
-      description:
-        "Implementación completa de facturación electrónica cumpliendo con la normativa ecuatoriana del SRI.",
-    },
-    {
-      icon: <Code2 className="w-8 h-8" />,
-      title: "Desarrollo Web a Medida",
-      description:
-        "Aplicaciones web personalizadas para operaciones internas o plataformas de negocio con tecnologías modernas.",
-    },
-    {
-      icon: <Workflow className="w-8 h-8" />,
-      title: "Automatización con IA",
-      description:
-        "Automatiza flujos de trabajo complejos y crea agentes inteligentes usando n8n y tecnologías de IA.",
-    },
-    {
-      icon: <Database className="w-8 h-8" />,
-      title: "Consultoría Técnica",
-      description:
-        "Asesoría especializada en arquitectura de software, optimización de procesos y selección de tecnologías.",
-    },
-    {
-      icon: <Zap className="w-8 h-8" />,
-      title: "Optimización de Procesos",
-      description:
-        "Análisis y mejora de procesos empresariales mediante soluciones tecnológicas eficientes y escalables.",
-    },
-  ];
-
-  const processSteps = [
-    {
-      number: "01",
-      title: "Análisis",
-      description: "Evaluación detallada de procesos y necesidades del negocio",
-    },
-    {
-      number: "02",
-      title: "Diseño",
-      description: "Arquitectura de solución y definición de alcance técnico",
-    },
-    {
-      number: "03",
-      title: "Implementación",
-      description: "Desarrollo, integración y pruebas exhaustivas",
-    },
-    {
-      number: "04",
-      title: "Soporte",
-      description: "Acompañamiento continuo y optimización del sistema",
-    },
-  ];
-
-  const cases = [
-    {
-      title: "Grobandeli - Banaexport",
-      description:
-        "Sistema de gestión documental, monitoreo y tracking de contenedores en tiempo real.",
-      result:
-        "Oferta de valor agregado y canal de CRM para que los clientes puedan ir gestionando su documentación y monitoreo de su contenedor.",
-      logo: "/case-logos/grobandeli.png",
-    },
-    {
-      title: "Ecuaweb",
-      description:
-        "Automatización completa: Checkout, pago con tarjeta de crédito, activación de servicios, facturación electrónica e integración con el flujo de ERP.",
-      result:
-        "Procesamiento automático del 100% de las transacciones y reducción de un 95% de carritos de compras abandonados.",
-      logo: "/case-logos/ecuaweb.png",
-    },
-    {
-      title: "Ecuahosting",
-      description:
-        "Automatización completa: Checkout, pago con tarjeta de crédito, activación de servicios, facturación electrónica e integración con el flujo de ERP.",
-      result:
-        "Procesamiento automático del 100% de las transacciones y reducción de un 95% de carritos de compras abandonados.",
-      logo: "/case-logos/ecuahosting.png",
-    },
-    {
-      title: "ECUADORDOMAIN S.A.",
-      description:
-        "Asesoría para mejores practicas de diseño de infraestructura y Capacitaciones.",
-      result:
-        "Infraestructura estable, tolerante a fallos, resiliencia óptima.",
-      logo: "/case-logos/nicec.png",
-    },
-  ];
-
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
       {/* Header */}
@@ -290,27 +125,8 @@ export function Home() {
               Desde la integración de sistemas hasta la automatización con IA
             </p>
           </div>
-          <div className="my-border grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service, index) => (
-              <Card
-                key={index}
-                className="border-2 border-gray-100 dark:border-gray-800 hover:border-blue-600 dark:hover:border-blue-500 hover:shadow-lg transition-all duration-300"
-              >
-                <CardHeader>
-                  <div className="w-16 h-16 bg-blue-50 dark:bg-blue-900/30 rounded-lg flex items-center justify-center text-blue-600 mb-4">
-                    {service.icon}
-                  </div>
-                  <CardTitle className="text-xl text-gray-900 dark:text-white">
-                    {service.title}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-base text-gray-600 dark:text-gray-400">
-                    {service.description}
-                  </CardDescription>
-                </CardContent>
-              </Card>
-            ))}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <ServiceCard />
           </div>
         </div>
       </section>
@@ -333,24 +149,7 @@ export function Home() {
             </p>
           </div>
           <div className=" grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {processSteps.map((step, index) => (
-              <div key={index} className=" relative">
-                <div className="text-6xl font-bold text-blue-100 dark:text-blue-900/50 mb-4">
-                  {step.number}
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
-                  {step.title}
-                </h3>
-                <p className="text-gray-600 dark:text-gray-400">
-                  {step.description}
-                </p>
-                {index < processSteps.length - 1 && (
-                  <div className="hidden lg:block absolute top-8 -right-4 text-blue-300 dark:text-blue-700">
-                    <ArrowRight className="w-8 h-8" />
-                  </div>
-                )}
-              </div>
-            ))}
+            <ProcessContent />
           </div>
         </div>
       </section>
@@ -391,42 +190,7 @@ export function Home() {
             </p>
           </div>
           <div className="grid lg:grid-cols-2 gap-8">
-            {cases.map((caseItem, index) => (
-              <Card
-                key={index}
-                className="border-2 border-gray-100 dark:border-gray-800 hover:shadow-xl transition-shadow overflow-hidden"
-              >
-                <CardHeader>
-                  <div className="flex items-start gap-4">
-                    <div className="w-20 h-20 bg-white dark:bg-gray-800 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md overflow-hidden border border-gray-100 dark:border-gray-700  relative">
-                      <Image
-                        src={caseItem.logo}
-                        alt={caseItem.title}
-                        //className="w-full h-full object-contain p-2"
-                        fill
-                        className="object-contain p-2"
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <CardTitle className="text-xl text-gray-900 dark:text-white mb-2">
-                        {caseItem.title}
-                      </CardTitle>
-                      <CardDescription className="text-base text-gray-600 dark:text-gray-400">
-                        {caseItem.description}
-                      </CardDescription>
-                    </div>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex items-start gap-3 bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
-                    <CheckCircle2 className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
-                    <p className="text-sm text-gray-700 dark:text-gray-300 font-medium">
-                      {caseItem.result}
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+            <UseCaseCard />
           </div>
         </div>
       </section>
@@ -448,88 +212,7 @@ export function Home() {
               Conversemos sobre cómo optimizar tus procesos y sistemas
             </p>
           </div>
-          <Card className="border-2 border-gray-200 dark:border-gray-700">
-            <CardContent className="p-8">
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                      Nombre completo
-                    </label>
-                    <Input
-                      name="name"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      placeholder="Tu nombre"
-                      required
-                      className="border-gray-300 dark:border-gray-600"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                      Email
-                    </label>
-                    <Input
-                      name="email"
-                      type="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      placeholder="tu@email.com"
-                      required
-                      className="border-gray-300 dark:border-gray-600"
-                    />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                    Empresa
-                  </label>
-                  <Input
-                    name="company"
-                    value={formData.company}
-                    onChange={handleInputChange}
-                    placeholder="Nombre de tu empresa"
-                    className="border-gray-300 dark:border-gray-600"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                    Mensaje
-                  </label>
-                  <Textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    placeholder="Cuéntame sobre tu proyecto o necesidad..."
-                    rows={5}
-                    required
-                    className="border-gray-300 dark:border-gray-600"
-                  />
-                </div>
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <Button
-                    type="submit"
-                    size="lg"
-                    className="flex-1 bg-blue-600 hover:bg-blue-700 text-white"
-                    disabled={isSubmitting}
-                  >
-                    <Mail className="w-5 h-5 mr-2" />
-                    {isSubmitting ? "Enviando..." : "Enviar mensaje"}
-                  </Button>
-                  <Button
-                    type="button"
-                    onClick={() => window.open(whatsappLink, "_blank")}
-                    size="lg"
-                    variant="outline"
-                    className="flex-1 border-2 border-blue-600 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20"
-                  >
-                    <MessageSquare className="w-5 h-5 mr-2" />
-                    Escribir por WhatsApp
-                  </Button>
-                </div>
-              </form>
-            </CardContent>
-          </Card>
+          <ContactForm />
         </div>
       </section>
 

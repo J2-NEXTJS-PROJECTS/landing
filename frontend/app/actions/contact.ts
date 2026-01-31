@@ -1,17 +1,25 @@
-'use server';
+"use server";
+import nodemailer from "nodemailer";
+import { contactSchema, type ContactFormData } from "@/lib/validations";
+import { z } from "zod";
 
-import nodemailer from 'nodemailer';
-import { contactSchema, type ContactFormData } from '@/lib/validations';
-import { z } from 'zod';
-
-export async function sendContactEmail(formData: ContactFormData) {
+export interface ContactActionState {
+  success: boolean;
+  message: string;
+  errors?: z.ZodIssue[];
+}
+export const sendContactEmail = async (
+  _prevState: ContactActionState,
+  formData: ContactFormData,
+): Promise<ContactActionState> => {
   try {
     //1. Parsear y validar datos
+    //console.log(formData)
     const validated = contactSchema.parse(formData);
 
     //2. Configurar transporte de email
     const transporter = nodemailer.createTransport({
-      service: 'gmail',
+      service: "gmail",
       auth: {
         user: process.env.GMAIL_USER,
         pass: process.env.GMAIL_PASS,
@@ -52,7 +60,7 @@ export async function sendContactEmail(formData: ContactFormData) {
             <div style="background: #f9fafb; padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #3b82f6;">
               <p style="margin: 10px 0;"><strong style="color: #3b82f6;">Nombre:</strong> ${validated.name}</p>
               <p style="margin: 10px 0;"><strong style="color: #3b82f6;">Email:</strong> <a href="mailto:${validated.email}" style="color: #1d4ed8;">${validated.email}</a></p>
-              <p style="margin: 10px 0;"><strong style="color: #3b82f6;">Empresa:</strong> ${validated.company || 'No especificada'}</p>
+              <p style="margin: 10px 0;"><strong style="color: #3b82f6;">Empresa:</strong> ${validated.company || "No especificada"}</p>
             </div>
             
             <div style="background: #f9fafb; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
@@ -78,18 +86,26 @@ export async function sendContactEmail(formData: ContactFormData) {
       from: `"J2Systems - Contacto" <${process.env.GMAIL_USER}>`,
       to: process.env.GMAIL_USER,
       replyTo: validated.email,
-      subject: `Nuevo Contacto: ${validated.name} - ${validated.company || 'Sin empresa'}`,
+      subject: `Nuevo Contacto: ${validated.name} - ${validated.company || "Sin empresa"}`,
       html,
     });
 
-    return { success: true, message: 'Email enviado exitosamente' };
+    return { success: true, message: "Email enviado exitosamente" };
   } catch (error) {
-    console.error('Error sending email:', error);
-    
+    console.error("Error sending email:", error);
+
     if (error instanceof z.ZodError) {
-      return { success: false, message: 'Datos inválidos', errors: error.errors };
+      //console.log(JSON.stringify(error.errors,null,2))
+      return {
+        success: false,
+        message: "Datos inválidos",
+        errors: error.errors,
+      };
     }
-    
-    return { success: false, message: 'Error al enviar el email. Por favor, intenta de nuevo.' };
+
+    return {
+      success: false,
+      message: "Error al enviar el email. Por favor, intenta de nuevo.",
+    };
   }
-}
+};
