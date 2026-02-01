@@ -32,6 +32,7 @@ export const ContactForm = () => {
         description: "Gracias por contactarme. Te responderé pronto.",
       });
     } else {
+      sendContact.errors?.map((error) => console.log(error.message));
       toast.error("Error al enviar", {
         description:
           sendContact.message ||
@@ -64,6 +65,10 @@ export const ContactForm = () => {
                 placeholder="Tu nombre"
                 required
                 className="border-gray-300 dark:border-gray-600"
+                onInvalid={(e) =>
+                  e.currentTarget.setCustomValidity("El nombre es obligatorio")
+                }
+                onInput={(e) => e.currentTarget.setCustomValidity("")}
               />
             </div>
             <div className="space-y-2">
@@ -76,6 +81,10 @@ export const ContactForm = () => {
                 placeholder="tu@email.com"
                 required
                 className="border-gray-300 dark:border-gray-600"
+                onInvalid={(e) =>
+                  e.currentTarget.setCustomValidity("El correo es obligatorio")
+                }
+                onInput={(e) => e.currentTarget.setCustomValidity("")}
               />
             </div>
           </div>
@@ -101,6 +110,10 @@ export const ContactForm = () => {
               rows={5}
               required
               className="border-gray-300 dark:border-gray-600"
+              onInvalid={(e) =>
+                  e.currentTarget.setCustomValidity("El mensaje es obligatorio")
+                }
+              onInput={(e) => e.currentTarget.setCustomValidity("")}
             />
           </div>
           {/* {state.errors && (

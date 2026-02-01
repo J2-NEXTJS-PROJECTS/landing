@@ -15,6 +15,7 @@ export const sendContactEmail = async (
   try {
     //1. Parsear y validar datos
     //console.log(formData)
+    //const data =Object.fromEntries(formData)
     const validated = contactSchema.parse(formData);
 
     //2. Configurar transporte de email
