@@ -192,6 +192,18 @@ export const TechStackCategorized = () => {
             />
           ),
         },
+        {
+          name: "Gemini",
+          logo: (
+            <Image
+              src="/tech-logos/gemini.png"
+              alt="Gemini"
+              width={40}
+              height={40}
+              className="object-contain"
+            />
+          ),
+        },
       ],
     },
     {
