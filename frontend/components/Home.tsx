@@ -15,9 +15,19 @@ export function Home() {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
       {/* Header */}
       <header className="fixed top-0 w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 z-50">
-        <div className=" max-w-7xl mx-auto px-6 lg:px-8 py-3">
+        <div className=" max-w-7xl mx-auto px-6 lg:px-8 py-1">
           <div className=" flex justify-between items-center">
-            <Logo width={220} height={65} />
+            <div className="leading-none">
+              <Image
+                className="block h-24 w-auto"
+                src="/logo-opcion-3.png"
+                width={1015}
+                height={565}
+                alt="J2 Systems"
+                priority
+              />
+            </div>
+            
             <nav className=" hidden md:flex gap-8 items-center">
               <a
                 href="#servicios"
@@ -222,67 +232,15 @@ export function Home() {
           <div className="grid md:grid-cols-3 gap-8 mb-8">
             <div>
               <div className="mb-4">
-                <svg
-                  width="180"
-                  height="50"
-                  viewBox="0 0 240 70"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <defs>
-                    <linearGradient
-                      id="logoGradientFooter"
-                      x1="0%"
-                      y1="0%"
-                      x2="100%"
-                      y2="100%"
-                    >
-                      <stop
-                        offset="0%"
-                        style={{ stopColor: "#3b82f6", stopOpacity: 1 }}
-                      />
-                      <stop
-                        offset="100%"
-                        style={{ stopColor: "#1d4ed8", stopOpacity: 1 }}
-                      />
-                    </linearGradient>
-                  </defs>
-                  <path
-                    d="M 18 12 L 36 3 L 54 12 L 54 30 L 36 39 L 18 30 Z"
-                    fill="url(#logoGradientFooter)"
-                  />
-                  <text
-                    x="36"
-                    y="27"
-                    fontFamily="Arial, sans-serif"
-                    fontSize="19"
-                    fontWeight="700"
-                    fill="white"
-                    textAnchor="middle"
-                  >
-                    J2
-                  </text>
-                  <text
-                    x="65"
-                    y="30"
-                    fontFamily="Arial, sans-serif"
-                    fontSize="28"
-                    fontWeight="600"
-                    fill="white"
-                    letterSpacing="-0.5"
-                  >
-                    Systems
-                  </text>
-                  <line
-                    x1="65"
-                    y1="37"
-                    x2="185"
-                    y2="37"
-                    stroke="white"
-                    strokeWidth="2.5"
-                    opacity="0.3"
-                  />
-                </svg>
+                <Image
+                className="block h-16 w-auto"
+                src="/logo-opcion-3.png"
+                width={1015}
+                height={565}
+                alt="J2 Systems"
+                priority
+              />
+                
               </div>
               <p className="text-gray-400">
                 Integración de sistemas y desarrollo de soluciones empresariales
