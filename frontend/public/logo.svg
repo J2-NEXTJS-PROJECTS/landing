@@ -1,0 +1,54 @@
+<svg
+  width="240"
+  height="65"
+  viewBox="0 0 240 65"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <defs>
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="1" />
+      <stop offset="100%" stop-color="#1d4ed8" stop-opacity="1" />
+    </linearGradient>
+  </defs>
+
+  <path
+    d="M 10.8 13.4 L 36 0.8 L 61.2 13.4 L 61.2 38.6 L 36 51.2 L 10.8 38.6 Z"
+    fill="url(#logoGradient)"
+  />
+
+  <text
+    x="36"
+    y="26"
+    font-family="system-ui, -apple-system, sans-serif"
+    font-size="28"
+    font-weight="700"
+    fill="white"
+    text-anchor="middle"
+    dominant-baseline="middle"
+  >
+    J2
+  </text>
+
+  <text
+    x="65"
+    y="35"
+    font-family="system-ui, -apple-system, sans-serif"
+    font-size="38"
+    font-weight="600"
+    fill="#1f2937"
+    letter-spacing="-0.5"
+  >
+    Systems
+  </text>
+
+  <line
+    x1="65"
+    y1="37"
+    x2="212"
+    y2="37"
+    stroke="#3b82f6"
+    stroke-width="2.5"
+    opacity="0.3"
+  />
+</svg>
