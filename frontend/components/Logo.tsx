@@ -15,7 +15,7 @@ export const Logo: React.FC<LogoProps> = ({
     <svg 
       width={width} 
       height={height} 
-      viewBox="0 0 240 70" 
+      viewBox="0 0 240 45" 
       fill="none" 
       xmlns="http://www.w3.org/2000/svg"
       className={className}
@@ -28,27 +28,28 @@ export const Logo: React.FC<LogoProps> = ({
       </defs>
       
       <path 
-        d="M 18 12 L 36 3 L 54 12 L 54 30 L 36 39 L 18 30 Z" 
+        d="M 10.8 13.4 L 36 0.8 L 61.2 13.4 L 61.2 38.6 L 36 51.2 L 10.8 38.6 Z" 
         fill="url(#logoGradient)"
       />
       
       <text 
         x="36" 
-        y="27" 
+        y="26" 
         fontFamily="system-ui, -apple-system, sans-serif" 
-        fontSize="19" 
+        fontSize="28" 
         fontWeight="700" 
         fill="white" 
         textAnchor="middle"
+        dominantBaseline="middle"
       >
         J2
       </text>
       
       <text 
         x="65" 
-        y="30" 
+        y="35" 
         fontFamily="system-ui, -apple-system, sans-serif" 
-        fontSize="28" 
+        fontSize="38" 
         fontWeight="600" 
         fill="#1f2937"
         letterSpacing="-0.5"
@@ -60,7 +61,7 @@ export const Logo: React.FC<LogoProps> = ({
       <line 
         x1="65" 
         y1="37" 
-        x2="185" 
+        x2="212" 
         y2="37" 
         stroke="#3b82f6" 
         strokeWidth="2.5"
