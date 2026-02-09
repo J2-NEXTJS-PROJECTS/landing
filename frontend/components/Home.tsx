@@ -27,7 +27,7 @@ export function Home() {
                 priority
               />
             </div>
-            
+
             <nav className=" hidden md:flex gap-8 items-center">
               <a
                 href="#servicios"
@@ -93,7 +93,7 @@ export function Home() {
             <div className="relative">
               <div className="aspect-square rounded-2xl overflow-hidden shadow-2xl">
                 <Image
-                  src="https://images.unsplash.com/photo-1521737711867-e3b97375f902"
+                  src="/img-main.jpeg"
                   alt="Equipo de desarrollo profesional"
                   // className="w-full h-full object-cover"
                   fill
@@ -233,14 +233,13 @@ export function Home() {
             <div>
               <div className="mb-4">
                 <Image
-                className="block h-16 w-auto"
-                src="/logo-opcion-3.png"
-                width={1015}
-                height={565}
-                alt="J2 Systems"
-                priority
-              />
-                
+                  className="block h-16 w-auto"
+                  src="/logo-opcion-3.png"
+                  width={1015}
+                  height={565}
+                  alt="J2 Systems"
+                  priority
+                />
               </div>
               <p className="text-gray-400">
                 Integración de sistemas y desarrollo de soluciones empresariales
