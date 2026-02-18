@@ -2,8 +2,7 @@ import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import Image from "next/image";
 
-export const TechStackCategorized = () => {
-  const technologies = [
+const technologies = [
     {
       category: "Frontend",
       items: [
@@ -276,6 +275,18 @@ export const TechStackCategorized = () => {
             />
           ),
         },
+        {
+          name: "Dora",
+          logo: (
+            <Image
+              src="/tech-logos/dora.png"
+              alt="Dora"
+              width={80}
+              height={80}
+              className="object-contain"
+            />
+          ),
+        }
       ],
     },
     {
@@ -385,9 +396,25 @@ export const TechStackCategorized = () => {
             />
           ),
         },
+
+        {
+          name: "AWS Lambda",
+          logo: (
+            <Image
+              src="/tech-logos/lambda.png"
+              alt="Aws Lambda"
+              width={48}
+              height={48}
+              className="object-contain"
+            />
+          ),
+        }
+        
       ],
     },
   ];
+export const TechStackCategorized = () => {
+  
 
   return (
     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">

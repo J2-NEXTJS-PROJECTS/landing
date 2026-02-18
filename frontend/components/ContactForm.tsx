@@ -5,7 +5,7 @@ import { Card, CardContent } from "./ui/card";
 import { MessageSquare, Mail } from "lucide-react";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
-import { sendContactEmail, ContactActionState } from "@/app/actions/contact";
+import { sendContactEmail, ContactActionState } from "@/actions/contact";
 import { Button } from "./ui/button";
 import { toast } from "sonner";
 
